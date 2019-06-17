@@ -21,7 +21,7 @@ $segment_url = base_url($segment);
             <?=$this->session->flashdata('message'); ?>
             <?=form_open('', ['id' => 'forms','class' => 'form-horizontal', 'style' => 'width:70%;margin:auto;', 'name' => "submit"]); ?>
             <?=custom_input_readonly(['name' => 'nomor_surat', 'placeholder' => 'Nomor Surat', 'id' => 'nomor_surat'], $value = $nomor_surat) ?>
-            <?=custom_input(['name' => 'tanggal', 'placeholder' => 'Tanggal', 'id' => 'datepicker']) ?>
+            <?=custom_input(['name' => 'tanggal', 'placeholder' => 'Tanggal', 'id' => 'datepicker', 'autocomplete' => 'off']) ?>
             <?=custom_dropdown('Kegiatan', ['name' => 'kegiatan'], $options = [
                 'BA Pra Aanwijzing' => 'BA Pra Aanwijzing',
                 'BA Aanwijzing' => 'BA Aanwijzing',

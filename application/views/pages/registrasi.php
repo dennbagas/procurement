@@ -14,8 +14,7 @@ $password = set_value('password');
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Registrasi Pegawai
-        <small></small>
+        <center>Registrasi Pegawai</center>
     </h1>
 </section>
 

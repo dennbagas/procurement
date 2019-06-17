@@ -3,12 +3,13 @@ $this->load->view('template/head');
 $this->load->view('template/topbar');
 $this->load->view('template/sidebar');
 
-$nomor_surat = 'PUL.001/ND/PL.02/VI/2019';
-
+$segment_url = base_url($segment);
 ?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1><center>Tambah Surat Nota Dinas PUL</center></h1>
+    <h1>
+        <center>Tambah Surat Nota Dinas PUL</center>
+    </h1>
 </section>
 
 <section class="content">
@@ -18,19 +19,20 @@ $nomor_surat = 'PUL.001/ND/PL.02/VI/2019';
         </div>
         <div class="box-body">
             <?=$this->session->flashdata('message'); ?>
-            <?=form_open('nota-dinas-pul/tambah_surat', ['class' => 'form-horizontal', 'style' => 'width:70%;margin:auto;']); ?>
-            <?=custom_input_readonly(['name' => 'nomor_surat', 'placeholder' => 'Nomor Surat'], $value = $nomor_surat) ?>
-            <?=custom_input(['name' => 'tanggal', 'placeholder' => 'Tanggal', 'id' => 'datepicker']) ?>
-            <?=custom_dropdown(['label' => 'Kegiatan', 'name' => 'kegiatan'], $options = [
+            <?=form_open('', ['id' => 'forms','class' => 'form-horizontal', 'style' => 'width:70%;margin:auto;', 'name' => "submit"]); ?>
+            <?=custom_input_readonly(['name' => 'nomor_surat', 'placeholder' => 'Nomor Surat', 'id' => 'nomor_surat'], $value = $nomor_surat) ?>
+            <?=custom_input(['name' => 'tanggal', 'placeholder' => 'Tanggal', 'id' => 'datepicker', 'autocomplete' => 'off']) ?>
+            <?=custom_dropdown('Kegiatan', ['name' => 'kegiatan'], $options = [
                 'ND Usulan Penetapan Pemenang' => 'ND Usulan Penetapan Pemenang',
                 'ND Usulan Penetapan Pelaksana' => 'ND Usulan Penetapan Pelaksana',
                 'ND Penetapan Pemenang' => 'ND Penetapan Pemenang',
                 'ND Penetapan Pelaksana' => 'ND Penetapan Pelaksana',
-                'ND Masa Sanggah' => 'ND Masa Sanggah',
-            ]) ?>
-            <?=custom_input(['name' => 'pekerjaan', 'placeholder' => 'Pekerjaan']) ?>
-            <?=custom_input(['name' => 'tujuan', 'placeholder' => 'Tujuan']) ?>
-            <?=custom_dropdown(['label' => 'Pemesan', 'name' => 'pemesan'], $options = $pegawai) ?>
+                'ND Laporan Berakhirnya Masa Sanggah' => 'ND Laporan Berakhirnya Masa Sanggah',
+            ], '', ['id' => 'kegiatan']) ?>
+            <?=custom_input(['name' => 'pekerjaan', 'placeholder' => 'Pekerjaan', 'id' => 'pekerjaan']) ?>
+            <?=custom_input(['name' => 'tujuan', 'placeholder' => 'Tujuan', 'id' => 'tujuan']) ?>
+            <?=custom_dropdown('Pemesan', ['name' => 'pemesan'],
+                $options = $pegawai, 'ND Usulan Penetapan Pemenang', ['id' => 'pemesan']) ?>
             <?=form_hidden('jenis', 'nota_dinas_pul'); ?>
             <?=form_input(['type' => 'hidden', 'name' => 'tanggal', 'id' => 'altValue']) ?>
             <?=custom_submit(['name' => 'mysubmit', 'value' => 'Tambah', 'id' => 'submit']); ?>
@@ -44,8 +46,8 @@ $this->load->view('template/js');
 ?>
 
 <script>
-    $(function () {
-        /* 
+    jQuery(document).ready(function () {
+        /*
          * Script untuk menampilkan datepicker
          * setting format tanggal, nama hari dan bulan dalam bahasa indonesia
          */
@@ -58,15 +60,43 @@ $this->load->view('template/js');
             altFormat: "yy-mm-dd",
             altField: '#altValue',
         });
+
+        $("#submit").click(function (event) {
+            event.preventDefault();
+            var url = "<?php echo base_url(); ?>" + "nota-dinas-pul/simpan";
+            var data = {
+                nomor_surat: $("#nomor_surat").val(),
+                tanggal: $("#altValue").val(),
+                kegiatan: $("#kegiatan").val(),
+                pekerjaan: $("#pekerjaan").val(),
+                tujuan: $("#tujuan").val(),
+                pemesan: $("#pemesan").val(),
+                jenis: 'nota_dinas_pul',
+            };
+
+            $.ajax({
+                url: url,
+                data: data,
+                type: "POST",
+                dataType: 'json',
+                success: function (res) {
+                    if (res.error != null) {
+                        Swal.fire('', res.error, 'warning')
+                    } else if (res.success != null) {
+                        showCopyDialog();
+                    }
+                }
+            });
+        });
+
     });
 
     /*
      * Script untuk menampilkan dialog alert
      * setting untuk menampilkan nomor surat yang telah di generate
-     * 
-     * !!! TODO: buat agar tampil setelah save data berhasil
+     *
      */
-    $("#submit").click(function () {
+    function showCopyDialog() {
 
         // variabel untuk body dialog
         let body = '<div style="font-size:2rem;">Nomor Surat Anda</div>' +
@@ -87,15 +117,19 @@ $this->load->view('template/js');
             showConfirmButton: false,
             html: body,
             footer: footer,
+            allowOutsideClick: false,
         })
-    });
+    };
 
     // event yang di panggil ketika tombol Copy ditekan
     clipboard.on('success', function (e) {
+        $("#submit").hide();
         Toast.fire({
-            type: 'success',
-            title: 'Copied: ' + e.text
-        })
+                type: 'success',
+                title: 'Copied: ' + e.text
+            })
+            .then(() => redirect("<?=$segment_url?>"))
+            .catch(() => redirect("<?=$segment_url?>"));
     });
 </script>
 

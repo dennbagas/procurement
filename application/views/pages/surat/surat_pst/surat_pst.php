@@ -2,6 +2,8 @@
 $this->load->view('template/head');
 $this->load->view('template/topbar');
 $this->load->view('template/sidebar');
+
+$segment_url = base_url($segment);
 ?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -26,14 +28,30 @@ $this->load->view('template/sidebar');
             <table id="example" class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr>
-                        <th>No.</th>
-                        <th>Nomor Surat</th>
-                        <th>Tanggal</th>
-                        <th>Kegiatan</th>
-                        <th>Pekerjaan</th>
-                        <th>Tujuan</th>
-                        <th>Pemesan</th>
-                        <th>Action</th>
+                        <th>
+                            <center>No.</center>
+                        </th>
+                        <th>
+                            <center>Nomor Surat</center>
+                        </th>
+                        <th>
+                            <center>Tanggal</center>
+                        </th>
+                        <th>
+                            <center>Kegiatan</center>
+                        </th>
+                        <th>
+                            <center>Pekerjaan</center>
+                        </th>
+                        <th>
+                            <center>Tujuan</center>
+                        </th>
+                        <th>
+                            <center>Pemesan</center>
+                        </th>
+                        <th>
+                            <center>Action</center>
+                        </th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -49,68 +67,76 @@ $this->load->view('template/js');
 
 <script>
     $(document).ready(function () {
-        var tabel = $('#example').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "ordering": true, // Set true agar bisa di sorting
-            "order": [
-                [0, 'asc']
-            ], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
-            "ajax": {
-                "url": "<?php echo base_url('surat-pst/data_json') ?>", // URL file untuk proses select datanya
-                "type": "POST"
-            },
-            "deferRender": true,
-            "aLengthMenu": [
-                [10, 25, 50],
-                [10, 25, 50]
-            ], // Combobox Limit
-            "columns": [{
-                    "data": "id_surat",
-                    "orderable": false
-                },
-                {
-                    "data": "nomor_surat"
-                },
-                {
-                    "data": "tanggal"
-                },
-                {
-                    "data": "kegiatan",
-                    "orderable": false
-                },
-                {
-                    "data": "pekerjaan",
-                    "orderable": false
-                },
-                {
-                    "data": "tujuan",
-                    "orderable": false
-                },
-                {
-                    "data": "nama"
-                },
-                {
-                    "render": function (data, type, row) { // Tampilkan kolom aksi
-                        var html = "<a href=''>EDIT</a> | "
-                        html += "<a href=''>DELETE</a>"
+        var tabel = generate_datatables({
+            div: "#example",
+            url: "<?php echo base_url('surat-pst/data_json') ?>",
+            columns: [{
+                "data": "id_surat"
+            }, {
+                "width": "85px",
+                "data": "nomor_surat"
+            }, {
+                "data": "tanggal",
+                "render": function (data, type, row) {
+                    return date_id(data);
+                }
+            }, {
+                "data": "kegiatan",
+                "orderable": false
+            }, {
+                "data": "pekerjaan",
+                "orderable": false
+            }, {
+                "data": "tujuan",
+                "orderable": false
+            }, {
+                "data": "nama"
+            }, {
+                "width": "78px",
+                "data": "id_surat",
+                "orderable": false,
+                "render": function (data, type, row) { // Tampilkan kolom aksi
+                    var html = '<a href="<?php echo base_url("surat-pst/edit/' + data +
+                        '") ?>" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a> | ' +
+                        '<button class="btn btn-sm btn-danger" onclick="delete_data(' +
+                        data + ')"><i class="fa fa-trash"></i></button>'
 
-                        return html
-                    },
-                    "orderable": false
+                    return html
                 },
-            ],
-        }, );
+            }],
+        });
 
-        tabel.on('order.dt search.dt', function () {
+        // t.on('draw.dt', function () {
+        //     var PageInfo = $('#example').DataTable().page.info();
+        //     t.column(0, {
+        //         page: 'current'
+        //     }).nodes().each(function (cell, i) {
+        //         cell.innerHTML = i + 1 + PageInfo.start;
+        //     });
+        // });
+
+        tabel.on('draw.dt', function () {
+            var PageInfo = $('#example').DataTable().page.info();
             tabel.column(0, {
                 search: 'applied',
                 order: 'applied'
             }).nodes().each(function (cell, i) {
-                cell.innerHTML = i + 1;
+                cell.innerHTML = i + 1 + PageInfo.start;
             });
         }).draw();
     });
+
+    function delete_data(id_surat) {
+        var urlRedirect = "<?=$segment_url?>";
+        var url = "<?php echo base_url('surat-pst/destroy') ?>";
+        deleteDialog({
+            url: url,
+            data: {
+                id: id_surat
+            },
+            redirect: urlRedirect,
+        })
+    };
 </script>
 
 <?php

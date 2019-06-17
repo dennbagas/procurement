@@ -93,7 +93,7 @@ class BASE_Controller extends CI_Controller
             $last_record = strstr($query, '/', true);
         }
 
-        $last_number = sprintf("%03d", $last_record + 1);
+        $last_number = sprintf("%03d", (int)$last_record + 1);
         return $last_number;
     }
 

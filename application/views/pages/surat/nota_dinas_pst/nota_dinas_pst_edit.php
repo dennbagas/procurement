@@ -9,14 +9,14 @@ $segment_url = base_url($segment);
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        <center>Edit Surat Berita Acara</center>
+        <center>Edit Surat Nota Dinas PST</center>
     </h1>
 </section>
 
 <section class="content">
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Edit Surat Berita Acara</h3>
+            <h3 class="box-title">Edit Surat Nota Dinas PST</h3>
         </div>
         <div class="box-body">
             <?=$this->session->flashdata('message'); ?>
@@ -24,14 +24,15 @@ $segment_url = base_url($segment);
             <?=custom_input_readonly(['name' => 'nomor_surat', 'placeholder' => 'Nomor Surat', 'id' => 'nomor_surat'], $value = $data_surat['nomor_surat']) ?>
             <?=custom_input(['name' => 'tanggal', 'placeholder' => 'Tanggal', 'id' => 'datepicker'], $value = $tanggal) ?>
             <?=custom_dropdown('Kegiatan', ['name' => 'kegiatan'], $options = [
-                'BA Pra Aanwijzing' => 'BA Pra Aanwijzing',
-                'BA Aanwijzing' => 'BA Aanwijzing',
-                'BA Pembukaan Dokumen Penawaran' => 'BA Pembukaan Dokumen Penawaran',
-                'BA Evaluasi Dokumen Penawaran' => 'BA Evaluasi Dokumen Penawaran',
-                'BA Negosiasi/Klarifikasi Harga' => 'BA Negosiasi/Klarifikasi Harga',
-                'BA Kewajaran Harga' => 'BA Kewajaran Harga',
-                'BA Hasil Pelelangan' => 'BA Hasil Pelelangan',
-                'BA Hasil Penunjukan Langsung' => 'BA Hasil Penunjukan Langsung',
+                'ND Pra Aanwijzing' => 'ND Pra Aanwijzing',
+                'ND Aanwijzing' => 'ND Aanwijzing',
+                'ND Pembuatan HPS/OE (Owner Estimate)' => 'ND Pembuatan HPS/OE (Owner Estimate)',
+                'ND Pembukaan Dokumen Penawaran' => 'ND Pembukaan Dokumen Penawaran',
+                'ND Evaluasi Dokumen Penawaran' => 'ND Evaluasi Dokumen Penawaran',
+                'ND Undangan Negosiasi' => 'ND Undangan Negosiasi',
+                'ND Laporan Hasil Lelang' => 'ND Laporan Hasil Lelang',
+                'ND Laporan Hasil Penunjukan Langsung' => 'ND Laporan Hasil Penunjukan Langsung',
+                'ND Masa Sanggah' => 'ND Masa Sanggah',
             ], $data_surat['kegiatan'], ['id' => 'kegiatan'])
             ?>
             <?=custom_input(['name' => 'pekerjaan', 'placeholder' => 'Pekerjaan', 'id' => 'pekerjaan'], $value = $data_surat['pekerjaan']) ?>
@@ -55,7 +56,7 @@ $this->load->view('template/js');
     jQuery(document).ready(function () {
         $("#submit").click(function (event) {
             event.preventDefault();
-            var url = "<?php echo base_url(); ?>" + "berita-acara/update";
+            var url = "<?php echo base_url(); ?>" + "nota-dinas-pst/update";
             var data = {
                 // id dari input form
                 id: $("#id").val(),
@@ -65,7 +66,7 @@ $this->load->view('template/js');
                 pekerjaan: $("#pekerjaan").val(),
                 tujuan: $("#tujuan").val(),
                 pemesan: $("#pemesan").val(),
-                jenis: 'berita_acara',
+                jenis: 'nota_dinas_pst',
             };
 
             $.ajax({
