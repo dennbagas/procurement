@@ -15,4 +15,5 @@ $this->load->view('template/footer');
 <script src="<?php echo base_url('assets/jquery/jquery-ui.min.js'); ?>" type="text/javascript"></script>
 <script src="<?php echo base_url('assets/sweetalert/sweetalert2.min.js'); ?>" type="text/javascript"></script>
 <script src="<?php echo base_url('assets/clipboardjs/clipboard.min.js'); ?>"></script>
+<script src="<?php echo base_url('assets/chartjs/chart.js'); ?>"></script>
 <script src="<?php echo base_url('assets/script.js'); ?>"></script>
