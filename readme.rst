@@ -14,11 +14,11 @@ Aplikasi ini menggunakan Framework Codeigniter sebagai backend
 UI
 *******************
 
-# Untuk UI, Aplikasi ini menggunakan:
-# - Template AdminLTE
-# - CSS Framework bootstap 3.3.7
-# - jQUery
-# - jQuery Datatables
-# - sweetAlert
-# - FontAwesome
-# - chart.js
+| Untuk UI, Aplikasi ini menggunakan:
+| - Template AdminLTE
+| - CSS Framework bootstap 3.3.7
+| - jQUery
+| - jQuery Datatables
+| - sweetAlert
+| - FontAwesome
+| - chart.js
