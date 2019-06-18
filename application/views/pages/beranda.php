@@ -8,18 +8,13 @@ $this->load->view('template/sidebar');
     <h1>
         <center>Beranda</center>
     </h1>
-    <!-- <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Examples</a></li>
-        <li class="active">Blank page</li>
-    </ol> -->
 </section>
 
 <section class="content">
 
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Statistik</h3>
+            <h3 class="box-title">Statistik Pembuatan Surat</h3>
         </div>
         <div class="box-body">
             <canvas id="myChart" width="10" height="3"></canvas>

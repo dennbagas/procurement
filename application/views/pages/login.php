@@ -45,7 +45,7 @@ $verification = $this->session->flashdata('msg');
         <div class="form-group">
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-            <input type="nip" name="nip" class="form-control" placeholder="NIP" required>
+            <input type="nama_user" name="nama_user" class="form-control" placeholder="User Name" required>
           </div>
         </div>
         <div class="form-group">

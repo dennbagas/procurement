@@ -1,81 +1,100 @@
 <?php
 class Users_model extends CI_Model
 {
-    private $__table_user = 'ms_user';
-    private $__table_pegawai = 'ms_pegawai';
+    private static $__table_user = 'ms_user';
+    private static $__table_pegawai = 'ms_pegawai';
 
+    // fungsi aktifasi
     public function activate()
     {
-        // date_default_timezone_set('ASIA/JAKARTA');
-        $data = array(
-            'nip' => '000000',
-            'username' => 'Administrator',
-            'level' => '0',
-            // 'created_at' => date('2019-06-01 00:00:00'),
-             'password' => MD5('123456'),
-        );
-        return $this->db->insert($this->__table_user, $data);
+        $count = $this->db->get(self::$__table_user);
+        if ($count->num_rows() == 0) {
+
+            $nip = '000000';
+            $nama = 'administrator';
+            $password = '123456';
+
+            $data = array(
+                'nip' => $nip,
+                'nama_user' => $nama,
+                'level' => '0',
+                'password' => MD5($password),
+            );
+
+            $data_pegawai = array(
+                'nip' => $nip,
+                'nama' => $nama,
+                'jenis_kelamin' => '0',
+                'alamat' => $nama,
+            );
+
+            // insert ke tabel pegawai
+            $query2 = $this->db->insert(self::$__table_pegawai, $data_pegawai);
+
+            // insert ke tabel user
+            $query1 = $this->db->insert(self::$__table_user, $data);
+        }
     }
 
-    public function login($nip, $password)
+    public function login($nama_user, $password)
     {
-        $query = $this->db->query("SELECT * FROM $this->__table_user WHERE nip='$nip' AND password=MD5('$password') LIMIT 1");
+        $query = $this->db->select('*')
+            ->from(self::$__table_user)
+            ->where('nama_user', $nama_user)
+            ->where('password', MD5($password))
+            ->limit(1)->get();
+
         return $query;
     }
 
-    public function bio($id_user)
+    public function bio($nip)
     {
-        $query = $this->db->query("SELECT * FROM $this->__table_pegawai WHERE ms_user_id_user='$id_user' LIMIT 1");
+        $query = $this->db->select('*')
+            ->from(self::$__table_pegawai)
+            ->where('nip', $nip)
+            ->limit(1)->get();
+
         return $query;
     }
 
-    public function register($nip, $password, $nama, $jenis_kelamin, $alamat)
-    {
-        $data_user = array(
-            'nip' => $nip,
-            'level' => '1',
-            'password' => MD5($password),
-        );
-
-        $query = $this->db->insert($this->__table_user, $data_user);
-        if (!$query) {
-            return false;
-        }
-
-        $last_user_id = $this->db->insert_id();
-
-        $attach = $this->insert_pegawai($last_user_id, $nama, $jenis_kelamin, $alamat);
-        if (!$attach) {
-            return false;
-        }
-
-        return true;
-    }
-
-    public function insert_pegawai($id_user, $nama, $jenis_kelamin, $alamat)
+    public function register($nip, $nama, $jenis_kelamin, $alamat, $nama_user, $password)
     {
         $data_pegawai = array(
-            'ms_user_id_user' => $id_user,
+            'nip' => $nip,
             'nama' => $nama,
             'jenis_kelamin' => $jenis_kelamin,
             'alamat' => $alamat,
         );
 
-        $query = $this->db->insert($this->__table_pegawai, $data_pegawai);
+        // insert ke tabel pegawai
+        $query = $this->db->insert(self::$__table_pegawai, $data_pegawai);
 
-        if (!$query) {
-            return false;
-        }
+        // panggil fungsi insert_user
+        $attach = $this->insert_user($nip, $nama_user, $password);
 
-        return true;
+        return !$query || !$attach ? false : true;
+    }
+
+    public function insert_user($nip, $nama_user, $password)
+    {
+        $data_user = array(
+            'nip' => $nip,
+            'nama_user' => $nama_user,
+            'level' => '1',
+            'password' => password_hash($password, PASSWORD_BCRYPT),
+        );
+
+        // insert ke table user
+        $query = $this->db->insert(self::$__table_user, $data_user);
+
+        return !$query ? false : true;
     }
 
     private function __getQuery($search)
     {
         return $this->db->select('*')
             ->from('ms_user')
-        // ->where('ms_user.id_user', 261)
-            ->join('ms_pegawai', 'ms_pegawai.ms_user_id_user = ms_user.id_user')
+            ->join('ms_pegawai', 'ms_pegawai.nip = ms_user.nip')
             ->where("(id_user LIKE '%$search%' OR nama LIKE '%$search%')");
     }
 
@@ -92,7 +111,7 @@ class Users_model extends CI_Model
     public function count_all()
     {
         // $this->db->where('ms_user.id_user', 261);
-        return $this->db->count_all_results($this->__table_user); // Untuk menghitung semua data users
+        return $this->db->count_all_results(self::$__table_user); // Untuk menghitung semua data users
     }
 
     public function count_filter($search)
@@ -105,19 +124,15 @@ class Users_model extends CI_Model
     {
         $this->db->where('id_user', $id);
         $this->db->delete('ms_user');
-        if (!$query) {
-            return false;
-        }
 
-        return true;
+        return !$query ? false : true;
     }
 
     // fungsi untuk mengambil data pegawai
     public function get_pegawai()
     {
-        $this->db->select('id_pegawai, nama');
-        $this->db->from($this->__table_pegawai);
-        $this->db->where('ms_user_id_user is NOT NULL', null, false);
+        $this->db->select('nip, nama');
+        $this->db->from(self::$__table_pegawai);
         $this->db->order_by('nama', 'ASC');
         $query = $this->db->get();
 

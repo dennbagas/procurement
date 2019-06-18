@@ -13,6 +13,7 @@ class Login extends CI_Controller
     // fungsi untuk memanggil halaman login
     public function index()
     {
+        $this->users_model->activate();
         $this->load->view('pages/login');
     }
 
@@ -20,19 +21,19 @@ class Login extends CI_Controller
     public function auth()
     {
         // terima data dari input login
-        $nip = htmlspecialchars($this->input->post('nip', true), ENT_QUOTES);
+        $nama_user = htmlspecialchars($this->input->post('nama_user', true), ENT_QUOTES);
         $password = htmlspecialchars($this->input->post('password', true), ENT_QUOTES);
 
         // ambil data dari database
-        $auth = $this->users_model->login($nip, $password);
-
+        $auth = $this->users_model->login($nama_user, $password);
         // jika ditemukan data, maka ...
+
         if ($auth->num_rows() > 0) {
 
             // ... masukkan data ke dalam variabel $data
             $data = $auth->row_array();
-            $bio = $this->users_model->bio($data['id_user'])->row_array();
-
+            $bio = $this->users_model->bio($data['nip'])->row_array();
+            
             // set user data masuk
             $this->session->set_userdata('masuk', true);
 
@@ -47,7 +48,7 @@ class Login extends CI_Controller
 
             // set session data id user
             $this->session->set_userdata('ses_id', $data['id_user']);
-            
+
             // set session data id user
             $this->session->set_userdata('ses_nip', $data['nip']);
 
@@ -68,7 +69,7 @@ class Login extends CI_Controller
 
         } else {
             // ... jika data tidak ditemukan maka set pesan login
-            echo $this->session->set_flashdata('msg', 'Username Atau Password Salah');
+            echo $this->session->set_flashdata('msg', 'Username Atau Password Salah' . print_r($auth));
             // kembali ke halaman login
             redirect(base_url());
         }
