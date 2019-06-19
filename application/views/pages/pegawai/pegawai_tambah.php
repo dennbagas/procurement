@@ -5,6 +5,7 @@ $this->load->view('template/sidebar');
 
 // default value
 $nip = set_value('nip');
+$user_name = set_value('user_name');
 $nama = set_value('nama');
 $alamat = set_value('alamat');
 $jenis_kelamin = set_value('jenis_kelamin');
@@ -34,9 +35,10 @@ $password = set_value('password');
                 'name' => 'jenis_kelamin',
                 'value' => $jenis_kelamin,
             ],
-                $options = array('0' => 'Laki-laki', '1' => 'Perempuan'),
-                $selected = array('0' => 'Laki-laki'))
+            $options = array('0' => 'Laki-laki', '1' => 'Perempuan'),
+            $selected = array('0' => 'Laki-laki'))
             ?>
+            <?=custom_input(['name' => 'user_name', 'placeholder' => 'Username', 'value' => $user_name]) ?>
             <?=custom_password(['name' => 'password', 'placeholder' => 'Password', 'value' => $password]); ?>
             <?=custom_submit(['name' => 'mysubmit', 'value' => 'Tambah Pegawai']); ?>
 

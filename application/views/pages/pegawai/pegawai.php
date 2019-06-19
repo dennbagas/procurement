@@ -12,18 +12,18 @@ $this->load->view('template/sidebar');
 
 <section class="content">
     <div class="box">
-        <div class="box-body">
+        <div class="box-header with-border">
+            <h3 class="box-title">Daftar Pegawai</h3>
             <div class="box-tools pull-right">
-                <a href="<?=base_url() . 'pegawai/registrasi' ?>" class="btn btn-success">
+                <a href="<?=base_url() . 'pegawai/tambah' ?>" class="btn btn-success">
                     <i class="fa fa-pencil"></i> <span>Tambah Data</span>
                 </a>
             </div>
+        </div>
+        <div class="box-body">
             <table id="example" class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr>
-                        <th>
-                            <center>id</center>
-                        </th>
                         <th>
                             <center>NIP</center>
                         </th>
@@ -35,9 +35,6 @@ $this->load->view('template/sidebar');
                         </th>
                         <th>
                             <center>Alamat</center>
-                        </th>
-                        <th>
-                            <center>Role</center>
                         </th>
                         <th>
                             <center>Action</center>
@@ -73,9 +70,7 @@ $this->load->view('template/js');
                 [10, 25, 50],
                 [10, 25, 50]
             ], // Combobox Limit
-            "columns": [{
-                    "data": "id_user"
-                },
+            "columns": [
                 {
                     "data": "nip"
                 },
@@ -95,19 +90,12 @@ $this->load->view('template/js');
                     "orderable": false
                 },
                 {
-                    "data": "level",
-                    "render": function (data, type, row) { // Tampilkan kolom Role
-                        let level = (data == 0) ? "Administrator" : "Pegawai";
-                        return level;
-                    },
-                    "orderable": false
-                },
-                {
-                    "data": "id_user",
+                    "data": "nip",
                     "render": function (data, type, row) { // Tampilkan kolom aksi
-                        var html = '<a href="<?php echo base_url("pegawai/registrasi/' + data +
-                        '") ?>" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a> | ' +
-                            '<button class="btn btn-sm btn-danger" onclick="deleteDialog(' + data + ')"><i class="fa fa-trash"></i></button></center>';
+                        var html = '<a href="<?php echo base_url("pegawai/pegawai_edit/' + data +
+                            '") ?>" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a> | ' +
+                            '<button class="btn btn-sm btn-danger" onclick="deleteDialog(' +
+                            data + ')"><i class="fa fa-trash"></i></button></center>';
 
                         return html
                     },
@@ -129,7 +117,7 @@ $this->load->view('template/js');
         }).then(async (result) => {
             if (result.value) {
                 $.ajax({
-                    url: '<?php echo base_url('pegawai/destroy') ?>',
+                    url: "<?php echo base_url('pegawai/destroy') ?>",
                     type: 'POST',
                     data: {
                         id: data
@@ -140,7 +128,8 @@ $this->load->view('template/js');
                             'Data Anda berhasil dihapus',
                             'success'
                         ).then((result) => {
-                            window.location.href = "<?php echo base_url(); ?>" + "pegawai";
+                            window.location.href = "<?php echo base_url(); ?>" +
+                                "pegawai";
                         });
                     }
                 });

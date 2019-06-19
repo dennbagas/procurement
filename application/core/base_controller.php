@@ -51,7 +51,7 @@ class BASE_Controller extends CI_Controller
         return $callback; // Convert array $callback ke json
     }
 
-    public function return_json_users($model)
+    public function return_json_users($model, $table)
     {
         $search = $_POST['search']['value']; // Ambil data yang di ketik user pada textbox pencarian
         $limit = $_POST['length']; // Ambil data limit per page
@@ -60,17 +60,18 @@ class BASE_Controller extends CI_Controller
         $order_field = $_POST['columns'][$order_index]['data']; // Untuk mengambil nama field yg menjadi acuan untuk sorting
         $order_ascdesc = $_POST['order'][0]['dir']; // Untuk menentukan order by "ASC" atau "DESC"
 
-        $sql_total = $this->$model->count_all(); // Panggil fungsi count_all pada "Model"
+        $sql_total = $this->$model->count_all($table); // Panggil fungsi count_all pada "Model"
         $sql_data = $this->$model->filter(
             $search,
             $limit,
             $start,
             $order_field,
-            $order_ascdesc
+            $order_ascdesc,
+            $table
         );
 
         // Panggil fungsi filter pada "Model"
-        $sql_filter = $this->$model->count_filter($search); // Panggil fungsi count_filter pada "Model"
+        $sql_filter = $this->$model->count_filter($search, $table); // Panggil fungsi count_filter pada "Model"
 
         // Data yang akan dikirim kembali ke view
         $callback = array(

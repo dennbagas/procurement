@@ -4,6 +4,6 @@
   </a>
   <ul class="dropdown-menu">
     <li><a href="<?=base_url() . 'pegawai' ?>">Pegawai</a></li>
-    <li><a href="<?=base_url() . 'pegawai/register' ?>">Registrasi</a></li>
+    <li><a href="<?=base_url() . 'pegawai/user' ?>">User</a></li>
   </ul>
 </li>
