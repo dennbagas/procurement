@@ -81,4 +81,15 @@ class Pegawai extends BASE_Controller
         
         echo json_encode(['error' => 'error']);
     }
+
+    public function tambah()
+    { 
+        // tampilkan view
+        $this->load->view('pages/pegawai/pegawai_tambah');
+    }
+
+    public function edit($id)
+    {
+        $this->load->view('pages/pegawai/pegawai_edit', $data);
+    }
 }

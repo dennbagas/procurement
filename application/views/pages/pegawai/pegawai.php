@@ -14,7 +14,7 @@ $this->load->view('template/sidebar');
     <div class="box">
         <div class="box-body">
             <div class="box-tools pull-right">
-                <a href="<?=base_url() . 'pegawai/tambah' ?>" class="btn btn-success">
+                <a href="<?=base_url() . 'pegawai/registrasi' ?>" class="btn btn-success">
                     <i class="fa fa-pencil"></i> <span>Tambah Data</span>
                 </a>
             </div>
