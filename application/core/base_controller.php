@@ -13,6 +13,16 @@ class BASE_Controller extends CI_Controller
         $this->load->helper(array('url', 'form', 'custom_form', 'flash_message', 'string_extractor'));
     }
 
+    protected function _current_year()
+    {
+        return date("Y");
+    }
+    
+    protected function _current_month()
+    {
+        return date("M");
+    }
+
     /**
      * Fungsi untuk menampilkan dan pencarian di datatable
      * kode di bawah ini disesuaikan dengan
@@ -26,19 +36,21 @@ class BASE_Controller extends CI_Controller
         $order_index = $_POST['order'][0]['column']; // Untuk mengambil index yg menjadi acuan untuk sorting
         $order_field = $_POST['columns'][$order_index]['data']; // Untuk mengambil nama field yg menjadi acuan untuk sorting
         $order_ascdesc = $_POST['order'][0]['dir']; // Untuk menentukan order by "ASC" atau "DESC"
+        $year = $_POST['year'] ?? null;
 
-        $sql_total = $this->$model->count_all($jenis_surat); // Panggil fungsi count_all pada "Model"
+        $sql_total = $this->$model->count_all($jenis_surat, $year); // Panggil fungsi count_all pada "Model"
         $sql_data = $this->$model->filter(
             $jenis_surat,
             $search,
             $limit,
             $start,
             $order_field,
-            $order_ascdesc
+            $order_ascdesc,
+            $year
         );
 
         // Panggil fungsi filter pada "Model"
-        $sql_filter = $this->$model->count_filter($jenis_surat, $search); // Panggil fungsi count_filter pada "Model"
+        $sql_filter = $this->$model->count_filter($jenis_surat, $search, $year); // Panggil fungsi count_filter pada "Model"
 
         // Data yang akan dikirim kembali ke view
         $callback = array(
@@ -84,10 +96,10 @@ class BASE_Controller extends CI_Controller
         return $callback; // Convert array $callback ke json
     }
 
-    public function get_last_number($prefix, $jenis_surat)
+    public function get_last_number($prefix, $jenis_surat, $current_year)
     {
-        $query = $this->surat_model->get_last_record($jenis_surat);
-        
+        $query = $this->surat_model->get_last_record($jenis_surat, $current_year);
+
         if ($prefix != '') {
             $last_record = between($prefix, '/', $query);
         } else {

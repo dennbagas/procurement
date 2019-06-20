@@ -41,7 +41,7 @@ $this->load->view('template/js');
                 labels: ['Berita Acara', 'Nota Dinas GM', 'Nota Dinas PST', 'Nota Dinas PUL', 'Surat GM', 'Surat Lelang/PL', 'Surat PST'],
                 datasets: [{
                     label: 'Data Surat Tahun 2019',
-                    data: [12, 19, 3, 5, 2, 3, 20],
+                    data: [12, 19, 3, 5, 2, 3, 200],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',

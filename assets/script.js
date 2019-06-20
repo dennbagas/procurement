@@ -51,7 +51,8 @@ function generate_datatables(param) {
         }],
         "ajax": {
             "url": param.url, // URL file untuk proses select datanya
-            "type": "POST"
+            "type": "POST",
+            data: { year: param.year }
         },
         "deferRender": true,
         "aLengthMenu": [

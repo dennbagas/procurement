@@ -10,7 +10,7 @@
         <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
 
-            <?php if (current_url() != base_url('beranda')) {
+            <?php if (isset($segment)) {
                 $this->load->view('template/sidebar/sidebar_surat', ['segment' => $segment]);
             } ?>
         </ul>

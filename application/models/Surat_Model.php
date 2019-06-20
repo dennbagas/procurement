@@ -48,7 +48,7 @@ class Surat_model extends CI_model
             ->join('ms_user', 'ms_user.id_user = tr_surat.id_user')
             ->join('ms_pegawai', 'ms_pegawai.nip = ms_user.nip')
             ->where('id_surat', $id);
-        
+
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -75,26 +75,31 @@ class Surat_model extends CI_model
         }
     }
 
-    public function filter($jenis_surat, $search, $limit, $start, $order_field, $order_ascdesc)
+    public function filter($jenis_surat, $search, $limit, $start, $order_field, $order_ascdesc, $year)
     {
         $this->__getQuery($search)
             ->where('jenis', $jenis_surat)
             ->order_by($order_field, $order_ascdesc) // Untuk menambahkan query ORDER BY
             ->limit($limit, $start); // Untuk menambahkan query LIMIT
+        if ($year!=null) $this->db->where('tanggal BETWEEN "' . $year . '-01-01" and "' . $year . '-12-31"');
 
         $query = $this->db->get();
         return $query->result_array(); // Eksekusi query sql sesuai kondisi diatas
     }
 
-    public function count_all($jenis_surat)
+    public function count_all($jenis_surat, $year)
     {
         $this->db->where('jenis', $jenis_surat);
+        if ($year!=null) $this->db->where('tanggal BETWEEN "' . $year . '-01-01" and "' . $year . '-12-31"');
+
         return $this->db->count_all_results($this->__table_surat); // Untuk menghitung semua data users
     }
 
-    public function count_filter($jenis_surat, $search)
+    public function count_filter($jenis_surat, $search, $year)
     {
         $this->__getQuery($search)->where('jenis', $jenis_surat);
+        if ($year!=null) $this->db->where('tanggal BETWEEN "' . $year . '-01-01" and "' . $year . '-12-31"');
+
         return $this->db->get()->num_rows(); // Untuk menghitung jumlah data sesuai dengan filter pada textbox pencarian
     }
 
@@ -109,13 +114,13 @@ class Surat_model extends CI_model
         return true;
     }
 
-    public function get_last_record($jenis_surat)
+    public function get_last_record($jenis_surat, $current_year)
     {
-        $this->db->select('*')
+        $this->db->select('nomor_surat')
             ->from('tr_surat')
-            ->join('ms_user', 'ms_user.id_user = tr_surat.id_user')
-            ->join('ms_pegawai', 'ms_pegawai.nip = ms_user.nip')
             ->where('jenis', $jenis_surat)
+            ->where('tanggal BETWEEN "' . $current_year . '-01-01" and "' . $current_year . '-12-31"')
+            ->order_by('id_surat', 'DESC') // Untuk menambahkan query ORDER BY
             ->limit(1);
 
         $query = $this->db->get();

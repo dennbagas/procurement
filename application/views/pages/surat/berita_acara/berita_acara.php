@@ -69,7 +69,8 @@ $this->load->view('template/js');
     $(document).ready(function () {
         var tabel = generate_datatables({
             div: "#example",
-            url: "<?php echo base_url('berita-acara/data_json') ?>",
+            url: "<?=base_url('berita-acara/data_json') ?>",
+            year: <?=$year ?? "null" ?>,
             columns: [{
                 "data": "id_surat"
             }, {

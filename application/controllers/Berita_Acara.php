@@ -6,9 +6,6 @@ class Berita_Acara extends BASE_Controller
     protected static $_segment = 'berita-acara';
     // jenis surat
     protected static $_jenis_surat = 'berita_acara';
-    // format nomor surat
-    protected static $_prefix_nomor_surat = ''; //awalan nomor surat
-    protected static $_nomor_surat = '/BA/PL.02/PST/2019'; //akhiran  nomor surat
 
     public function __construct()
     {
@@ -18,8 +15,9 @@ class Berita_Acara extends BASE_Controller
     }
 
     // halaman berita acara
-    public function index()
+    public function index($year = null)
     {
+        $data['year'] = $year;
         $data['segment'] = self::$_segment;
         $this->load->view('pages/surat/berita_acara/berita_acara', $data);
     }
@@ -46,12 +44,19 @@ class Berita_Acara extends BASE_Controller
         foreach ($pegawai as $value) {
             $data['pegawai'][$value['id_user']] = $value['nama'];
         }
-
-        // ambil data terakhir
-        $last_number = $this->get_last_number(self::$_prefix_nomor_surat, self::$_jenis_surat);
+        
+        // ambil data tahun sekarang
+        $current_year = self::_current_year();
 
         // format nomor surat
-        $data['nomor_surat'] = self::$_prefix_nomor_surat . $last_number . self::$_nomor_surat;
+        $prefix_nomor_surat = ''; //awalan nomor surat
+        $nomor_surat = '/BA/PL.02/PST/' . $current_year . ''; //akhiran  nomor surat
+
+        // ambil data terakhir
+        $last_number = $this->get_last_number($prefix_nomor_surat, self::$_jenis_surat, $current_year);
+
+        // format nomor surat
+        $data['nomor_surat'] = $prefix_nomor_surat . $last_number . $nomor_surat;
 
         // tampilkan view
         $this->load->view('pages/surat/berita_acara/berita_acara_tambah', $data);
@@ -120,7 +125,7 @@ class Berita_Acara extends BASE_Controller
     // function untuk hapus data
     public function destroy()
     {
-        $id = $this->input->post('id');
+        $id = $this->input->post('id_surat');
         $delete = $this->surat_model->delete_surat($id);
 
         if ($delete) {
