@@ -81,7 +81,9 @@ class Surat_model extends CI_model
             ->where('jenis', $jenis_surat)
             ->order_by($order_field, $order_ascdesc) // Untuk menambahkan query ORDER BY
             ->limit($limit, $start); // Untuk menambahkan query LIMIT
-        if ($year!=null) $this->db->where('tanggal BETWEEN "' . $year . '-01-01" and "' . $year . '-12-31"');
+        if ($year != null) {
+            $this->db->where('tanggal BETWEEN "' . $year . '-01-01" and "' . $year . '-12-31"');
+        }
 
         $query = $this->db->get();
         return $query->result_array(); // Eksekusi query sql sesuai kondisi diatas
@@ -90,7 +92,9 @@ class Surat_model extends CI_model
     public function count_all($jenis_surat, $year)
     {
         $this->db->where('jenis', $jenis_surat);
-        if ($year!=null) $this->db->where('tanggal BETWEEN "' . $year . '-01-01" and "' . $year . '-12-31"');
+        if ($year != null) {
+            $this->db->where('tanggal BETWEEN "' . $year . '-01-01" and "' . $year . '-12-31"');
+        }
 
         return $this->db->count_all_results($this->__table_surat); // Untuk menghitung semua data users
     }
@@ -98,7 +102,9 @@ class Surat_model extends CI_model
     public function count_filter($jenis_surat, $search, $year)
     {
         $this->__getQuery($search)->where('jenis', $jenis_surat);
-        if ($year!=null) $this->db->where('tanggal BETWEEN "' . $year . '-01-01" and "' . $year . '-12-31"');
+        if ($year != null) {
+            $this->db->where('tanggal BETWEEN "' . $year . '-01-01" and "' . $year . '-12-31"');
+        }
 
         return $this->db->get()->num_rows(); // Untuk menghitung jumlah data sesuai dengan filter pada textbox pencarian
     }
@@ -126,5 +132,15 @@ class Surat_model extends CI_model
         $query = $this->db->get();
         $result = $query->result_array();
         return $result[0]['nomor_surat'] ?? 0;
+    }
+
+    public function get_statistik()
+    {
+        $this->db->select('count(*) as count, jenis')
+            ->from('tr_surat')->group_by('jenis');
+
+        $query = $this->db->get();
+
+        return $query->result_array();
     }
 }
