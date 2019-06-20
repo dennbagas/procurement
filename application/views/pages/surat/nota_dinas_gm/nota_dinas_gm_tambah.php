@@ -23,12 +23,12 @@ $segment_url = base_url($segment);
             <?=custom_input_readonly(['name' => 'nomor_surat', 'placeholder' => 'Nomor Surat', 'id' => 'nomor_surat'], $value = $nomor_surat) ?>
             <?=custom_input(['name' => 'tanggal', 'placeholder' => 'Tanggal', 'id' => 'datepicker', 'autocomplete' => 'off']) ?>
             <?=custom_dropdown('Kegiatan', ['name' => 'kegiatan'], $options = [
-                'ND Tanggapan GM' => 'ND Tanggapan GM',
+                'Tanggapan GM' => 'Tanggapan GM',
             ], '', ['id' => 'kegiatan']) ?>
             <?=custom_input(['name' => 'pekerjaan', 'placeholder' => 'Pekerjaan', 'id' => 'pekerjaan']) ?>
             <?=custom_input(['name' => 'tujuan', 'placeholder' => 'Tujuan', 'id' => 'tujuan']) ?>
             <?=custom_dropdown('Pemesan', ['name' => 'pemesan'],
-                $options = $pegawai, 'ND Tanggapan GM', ['id' => 'pemesan']) ?>
+                $options = $pegawai, 'Tanggapan GM', ['id' => 'pemesan']) ?>
             <?=form_hidden('jenis', 'nota_dinas_gm'); ?>
             <?=form_input(['type' => 'hidden', 'name' => 'tanggal', 'id' => 'altValue']) ?>
             <?=custom_submit(['name' => 'mysubmit', 'value' => 'Tambah', 'id' => 'submit']); ?>

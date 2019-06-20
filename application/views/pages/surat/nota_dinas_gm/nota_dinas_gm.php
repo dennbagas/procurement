@@ -1,7 +1,7 @@
 <?php
 $this->load->view('template/head');
 $this->load->view('template/topbar');
-$this->load->view('template/sidebar');
+$this->load->view('template/sidebar', ['segment' => $segment]);
 
 $segment_url = base_url($segment);
 ?>
@@ -69,7 +69,8 @@ $this->load->view('template/js');
     $(document).ready(function () {
         var tabel = generate_datatables({
             div: "#example",
-            url: "<?php echo base_url('nota-dinas-gm/data_json') ?>",
+            url: "<?=base_url('nota-dinas-gm/data_json') ?>",
+            year: <?=$year ?? "null" ?>,
             columns: [{
                 "data": "id_surat"
             }, {
@@ -106,15 +107,6 @@ $this->load->view('template/js');
             }],
         });
 
-        // t.on('draw.dt', function () {
-        //     var PageInfo = $('#example').DataTable().page.info();
-        //     t.column(0, {
-        //         page: 'current'
-        //     }).nodes().each(function (cell, i) {
-        //         cell.innerHTML = i + 1 + PageInfo.start;
-        //     });
-        // });
-
         tabel.on('draw.dt', function () {
             var PageInfo = $('#example').DataTable().page.info();
             tabel.column(0, {
@@ -127,12 +119,12 @@ $this->load->view('template/js');
     });
 
     function delete_data(id_surat) {
-        var urlRedirect = "<?=$segment_url?>";
+        var urlRedirect = "<?=$segment_url ?>";
         var url = "<?php echo base_url('nota-dinas-gm/destroy') ?>";
         deleteDialog({
             url: url,
             data: {
-                id: id_surat
+                id_surat: id_surat
             },
             redirect: urlRedirect,
         })

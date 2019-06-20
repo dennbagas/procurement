@@ -92,7 +92,7 @@ $this->load->view('template/js');
                 {
                     "data": "nip",
                     "render": function (data, type, row) { // Tampilkan kolom aksi
-                        var html = '<a href="<?php echo base_url("pegawai/pegawai_edit/' + data +
+                        var html = '<center><a href="<?php echo base_url("pegawai/pegawai_edit/' + data +
                             '") ?>" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a> | ' +
                             '<button class="btn btn-sm btn-danger" onclick="deleteDialog(' +
                             data + ')"><i class="fa fa-trash"></i></button></center>';

@@ -3,12 +3,9 @@
 class Nota_Dinas_Pul extends BASE_Controller
 {
     // nama surat
-    protected static $_segment = 'nota-dinas-pul';
+    protected static $_segment = 'nota-dinas-lelang-upil';
     // jenis surat
     protected static $_jenis_surat = 'nota_dinas_pul';
-    // format nomor surat
-    protected static $_prefix_nomor_surat = 'PUL.'; //awalan nomor surat
-    protected static $_nomor_surat = '/BA/PL.02/VI/2019'; //akhiran  nomor surat
 
     public function __construct()
     {
@@ -17,9 +14,10 @@ class Nota_Dinas_Pul extends BASE_Controller
         $this->load->helper('date_format_id');
     }
 
-    // halaman nota dinas pul
-    public function index()
+    // halaman berita acara
+    public function index($year = null)
     {
+        $data['year'] = $year;
         $data['segment'] = self::$_segment;
         $this->load->view('pages/surat/nota_dinas_pul/nota_dinas_pul', $data);
     }
@@ -44,14 +42,21 @@ class Nota_Dinas_Pul extends BASE_Controller
         // ambil data pegawai untuk di tampilkan di dropdown pemesan
         $pegawai = $this->users_model->get_pegawai();
         foreach ($pegawai as $value) {
-            $data['pegawai'][$value['id_pegawai']] = $value['nama'];
+            $data['pegawai'][$value['id_user']] = $value['nama'];
         }
-
-        // ambil data terakhir
-        $last_number = $this->get_last_number(self::$_prefix_nomor_surat, self::$_jenis_surat);
+        
+        // ambil data tahun sekarang
+        $current_year = self::_current_year();
 
         // format nomor surat
-        $data['nomor_surat'] = self::$_prefix_nomor_surat . $last_number . self::$_nomor_surat;
+        $prefix_nomor_surat = 'PUL.'; //awalan nomor surat
+        $nomor_surat = '/ND/PL.02//VI' . $current_year . ''; //akhiran  nomor surat
+
+        // ambil data terakhir
+        $last_number = $this->get_last_number($prefix_nomor_surat, self::$_jenis_surat, $current_year);
+
+        // format nomor surat
+        $data['nomor_surat'] = $prefix_nomor_surat . $last_number . $nomor_surat;
 
         // tampilkan view
         $this->load->view('pages/surat/nota_dinas_pul/nota_dinas_pul_tambah', $data);
@@ -84,7 +89,7 @@ class Nota_Dinas_Pul extends BASE_Controller
         // ambil data pegawai untuk di tampilkan di dropdown pemesan
         $pegawai = $this->users_model->get_pegawai();
         foreach ($pegawai as $value) {
-            $list_pegawai[$value['id_pegawai']] = $value['nama'];
+            $list_pegawai[$value['id_user']] = $value['nama'];
         }
 
         // ambil data surat sesuai dengan id_surat
@@ -120,7 +125,7 @@ class Nota_Dinas_Pul extends BASE_Controller
     // function untuk hapus data
     public function destroy()
     {
-        $id = $this->input->post('id');
+        $id = $this->input->post('id_surat');
         $delete = $this->surat_model->delete_surat($id);
 
         if ($delete) {

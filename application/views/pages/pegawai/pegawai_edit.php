@@ -6,14 +6,14 @@ $this->load->view('template/sidebar');
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        <center>Tambah Data Pegawai Baru</center>
+        <center>Edit Data Pegawai</center>
     </h1>
 </section>
 
 <section class="content">
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Tambah Data Pegawai Baru</h3>
+            <h3 class="box-title">Edit Data Pegawai</h3>
         </div>
         <div class="box-body">
             <?=$this->session->flashdata('pegawai_message'); ?>

@@ -26,8 +26,8 @@ $segment_url = base_url($segment);
                 'ND Usulan Penetapan Pemenang' => 'ND Usulan Penetapan Pemenang',
                 'ND Usulan Penetapan Pelaksana' => 'ND Usulan Penetapan Pelaksana',
                 'ND Penetapan Pemenang' => 'ND Penetapan Pemenang',
-                'ND Penetapan Pelaksana' => 'ND Penetapan Pelaksana',
-                'ND Laporan Berakhirnya Masa Sanggah' => 'ND Laporan Berakhirnya Masa Sanggah',
+                'ND Penetapan Pelaksana' => 'BA Evaluasi Dokumen Penawaran',
+                'BA Laporan Berakhirnya Masa Sanggah' => 'BA Laporan Berakhirnya Masa Sanggah',
             ], '', ['id' => 'kegiatan']) ?>
             <?=custom_input(['name' => 'pekerjaan', 'placeholder' => 'Pekerjaan', 'id' => 'pekerjaan']) ?>
             <?=custom_input(['name' => 'tujuan', 'placeholder' => 'Tujuan', 'id' => 'tujuan']) ?>

@@ -15,7 +15,7 @@ $segment_url = base_url($segment);
 <section class="content">
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Tambah Surat Lelang/Penunjukan Langsung</h3>
+            <h3 class="box-title">Tambah Surat Lelang/Penunjukan langsung</h3>
         </div>
         <div class="box-body">
             <?=$this->session->flashdata('message'); ?>

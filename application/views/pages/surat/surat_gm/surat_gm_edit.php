@@ -31,7 +31,7 @@ $segment_url = base_url($segment);
             <?=custom_input(['name' => 'pekerjaan', 'placeholder' => 'Pekerjaan', 'id' => 'pekerjaan'], $value = $data_surat['pekerjaan']) ?>
             <?=custom_input(['name' => 'tujuan', 'placeholder' => 'Tujuan', 'id' => 'tujuan'], $value = $data_surat['tujuan']) ?>
             <?=custom_dropdown('Pemesan', ['name' => 'pemesan'],
-                $options = $pegawai, $data_surat['ms_pegawai_id_pegawai'], ['id' => 'pemesan'])
+                $options = $pegawai, $data_surat['nip'], ['id' => 'pemesan'])
             ?>
             <?=form_input(['type' => 'hidden', 'name' => 'id', 'id' => 'id'], $value = $data_surat['id_surat']) ?>
             <?=form_input(['type' => 'hidden', 'name' => 'tanggal', 'id' => 'altValue'], $value = $data_surat['tanggal']) ?>

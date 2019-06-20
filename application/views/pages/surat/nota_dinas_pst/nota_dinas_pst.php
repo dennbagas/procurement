@@ -1,7 +1,7 @@
 <?php
 $this->load->view('template/head');
 $this->load->view('template/topbar');
-$this->load->view('template/sidebar');
+$this->load->view('template/sidebar', ['segment' => $segment]);
 
 $segment_url = base_url($segment);
 ?>
@@ -19,7 +19,7 @@ $segment_url = base_url($segment);
         <div class="box-header with-border">
             <h3 class="box-title">Nota Dinas PST</h3>
             <div class="box-tools pull-right">
-                <a href="<?=base_url() . 'nota-dinas-pst/tambah' ?>" class="btn btn-success">
+                <a href="<?=base_url() . 'nota-dinas-gm/tambah' ?>" class="btn btn-success">
                     <i class="fa fa-pencil"></i> <span>Tambah Data</span>
                 </a>
             </div>
@@ -69,7 +69,8 @@ $this->load->view('template/js');
     $(document).ready(function () {
         var tabel = generate_datatables({
             div: "#example",
-            url: "<?php echo base_url('nota-dinas-pst/data_json') ?>",
+            url: "<?=base_url('nota-dinas-gm/data_json') ?>",
+            year: <?=$year ?? "null" ?>,
             columns: [{
                 "data": "id_surat"
             }, {
@@ -96,7 +97,7 @@ $this->load->view('template/js');
                 "data": "id_surat",
                 "orderable": false,
                 "render": function (data, type, row) { // Tampilkan kolom aksi
-                    var html = '<a href="<?php echo base_url("nota-dinas-pst/edit/' + data +
+                    var html = '<a href="<?php echo base_url("nota-dinas-gm/edit/' + data +
                         '") ?>" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a> | ' +
                         '<button class="btn btn-sm btn-danger" onclick="delete_data(' +
                         data + ')"><i class="fa fa-trash"></i></button>'
@@ -105,15 +106,6 @@ $this->load->view('template/js');
                 },
             }],
         });
-
-        // t.on('draw.dt', function () {
-        //     var PageInfo = $('#example').DataTable().page.info();
-        //     t.column(0, {
-        //         page: 'current'
-        //     }).nodes().each(function (cell, i) {
-        //         cell.innerHTML = i + 1 + PageInfo.start;
-        //     });
-        // });
 
         tabel.on('draw.dt', function () {
             var PageInfo = $('#example').DataTable().page.info();
@@ -127,12 +119,12 @@ $this->load->view('template/js');
     });
 
     function delete_data(id_surat) {
-        var urlRedirect = "<?=$segment_url?>";
-        var url = "<?php echo base_url('nota-dinas-pst/destroy') ?>";
+        var urlRedirect = "<?=$segment_url ?>";
+        var url = "<?php echo base_url('nota-dinas-gm/destroy') ?>";
         deleteDialog({
             url: url,
             data: {
-                id: id_surat
+                id_surat: id_surat
             },
             redirect: urlRedirect,
         })
