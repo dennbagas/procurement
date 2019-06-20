@@ -44,7 +44,7 @@ class Berita_Acara extends BASE_Controller
         // ambil data pegawai untuk di tampilkan di dropdown pemesan
         $pegawai = $this->users_model->get_pegawai();
         foreach ($pegawai as $value) {
-            $data['pegawai'][$value['id_pegawai']] = $value['nama'];
+            $data['pegawai'][$value['id_user']] = $value['nama'];
         }
 
         // ambil data terakhir
@@ -84,7 +84,7 @@ class Berita_Acara extends BASE_Controller
         // ambil data pegawai untuk di tampilkan di dropdown pemesan
         $pegawai = $this->users_model->get_pegawai();
         foreach ($pegawai as $value) {
-            $list_pegawai[$value['id_pegawai']] = $value['nama'];
+            $list_pegawai[$value['id_user']] = $value['nama'];
         }
 
         // ambil data surat sesuai dengan id_surat

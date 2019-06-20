@@ -8,7 +8,8 @@ class Surat_model extends CI_model
     {
         return $this->db->select('*')
             ->from('tr_surat')
-            ->join('ms_pegawai', 'ms_pegawai_id_pegawai = ms_pegawai.id_pegawai')
+            ->join('ms_user', 'ms_user.id_user = tr_surat.id_user')
+            ->join('ms_pegawai', 'ms_pegawai.nip = ms_user.nip')
             ->where("(
                 nomor_surat LIKE '%$search%'
                 OR tanggal LIKE '%$search%'
@@ -27,7 +28,7 @@ class Surat_model extends CI_model
             'kegiatan' => $data['kegiatan'],
             'pekerjaan' => $data['pekerjaan'],
             'tujuan' => $data['tujuan'],
-            'ms_pegawai_id_pegawai' => $data['pemesan'],
+            'id_user' => $data['pemesan'],
             'jenis' => $data['jenis'],
         );
 
@@ -42,8 +43,12 @@ class Surat_model extends CI_model
 
     public function get_surat_edit($id)
     {
-        $query = $this->__getQuery('')->where('id_surat', $id);
-
+        $this->db->select('*')
+            ->from('tr_surat')
+            ->join('ms_user', 'ms_user.id_user = tr_surat.id_user')
+            ->join('ms_pegawai', 'ms_pegawai.nip = ms_user.nip')
+            ->where('id_surat', $id);
+        
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -56,7 +61,7 @@ class Surat_model extends CI_model
             'kegiatan' => $data['kegiatan'],
             'pekerjaan' => $data['pekerjaan'],
             'tujuan' => $data['tujuan'],
-            'ms_pegawai_id_pegawai' => $data['pemesan'],
+            'id_user' => $data['pemesan'],
             'jenis' => $data['jenis'],
         );
 
@@ -108,10 +113,11 @@ class Surat_model extends CI_model
     {
         $this->db->select('*')
             ->from('tr_surat')
-            ->join('ms_pegawai', 'ms_pegawai_id_pegawai = ms_pegawai.id_pegawai')
+            ->join('ms_user', 'ms_user.id_user = tr_surat.id_user')
+            ->join('ms_pegawai', 'ms_pegawai.nip = ms_user.nip')
             ->where('jenis', $jenis_surat)
-            ->order_by('id_surat', 'DESC')
             ->limit(1);
+
         $query = $this->db->get();
         $result = $query->result_array();
         return $result[0]['nomor_surat'] ?? 0;

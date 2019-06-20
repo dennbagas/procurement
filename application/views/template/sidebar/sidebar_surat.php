@@ -1,3 +1,4 @@
+<?=base_url($segment)?>
 <li>
 	<a href="#">
 		<i class="fa fa-th"></i> <span>Tahun 2021</span>

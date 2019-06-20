@@ -69,7 +69,7 @@ class Login extends CI_Controller
 
         } else {
             // ... jika data tidak ditemukan maka set pesan login
-            echo $this->session->set_flashdata('msg', 'Username Atau Password Salah' . print_r($auth));
+            echo $this->session->set_flashdata('msg', 'Username Atau Password Salah');
             // kembali ke halaman login
             redirect(base_url());
         }
