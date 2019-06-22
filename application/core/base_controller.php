@@ -10,17 +10,27 @@ class BASE_Controller extends CI_Controller
             redirect($url);
         }
         $this->load->library(array('form_validation'));
-        $this->load->helper(array('url', 'form', 'custom_form', 'flash_message', 'string_extractor'));
+        $this->load->helper(array('url', 'form', 'custom_form', 'flash_message', 'string_extractor', 'date_format_id'));
     }
 
     protected function _current_year()
     {
         return date("Y");
     }
-    
+
     protected function _current_month()
     {
-        return date("M");
+        return date("m");
+    }
+
+    protected function _list_pegawai()
+    {
+        $pegawai = $this->users_model->get_pegawai();
+        foreach ($pegawai as $value) {
+            $data['pegawai'][$value['nip']] = $value['nama'];
+        }
+
+        return $data['pegawai'];
     }
 
     /**

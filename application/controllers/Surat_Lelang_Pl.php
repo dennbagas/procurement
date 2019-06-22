@@ -40,11 +40,8 @@ class Surat_Lelang_Pl extends BASE_Controller
         $data['segment'] = self::$_segment;
 
         // ambil data pegawai untuk di tampilkan di dropdown pemesan
-        $pegawai = $this->users_model->get_pegawai();
-        foreach ($pegawai as $value) {
-            $data['pegawai'][$value['id_user']] = $value['nama'];
-        }
-        
+        $data['pegawai'] = self::_list_pegawai();
+
         // ambil data tahun sekarang
         $current_year = self::_current_year();
 

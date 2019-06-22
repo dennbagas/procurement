@@ -6,6 +6,10 @@ class Pegawai extends BASE_Controller
     {
         parent::__construct();
         $this->load->model('users_model');
+        if ($this->session->userdata('akses') != 'admin') {
+            $url = base_url('beranda');
+            redirect($url);
+        }
     }
 
     // halaman pegawai
@@ -46,7 +50,7 @@ class Pegawai extends BASE_Controller
 
     public function register_post()
     {
-        $this->form_validation->set_rules('nip', 'NIP', 'required|min_length[5]|max_length[10]|is_unique[ms_user.nip]',
+        $this->form_validation->set_rules('nip', 'NIP', 'required|min_length[5]|max_length[10]|is_unique[ms_pegawai.nip]',
             array(
                 'required' => 'Kolom %s harus di isi.',
                 'is_unique' => '- %s telah digunakan.',
@@ -87,18 +91,6 @@ class Pegawai extends BASE_Controller
         }
     }
 
-    public function destroy()
-    {
-        $id = $this->input->post('id');
-        $delete = $this->users_model->delete_data($id);
-
-        if ($delete) {
-            echo json_encode(['success' => 'OK']);
-        }
-
-        echo json_encode(['error' => 'error']);
-    }
-
     public function pegawai_edit($id)
     {
         $data_user = $this->users_model->get_pegawai_edit($id);
@@ -128,6 +120,18 @@ class Pegawai extends BASE_Controller
                 echo json_encode(['success' => 'Success']);
             }
         }
+    }
+
+    public function pegawai_destroy()
+    {
+        $id = $this->input->post('id');
+        $delete = $this->users_model->delete_pegawai($id);
+
+        if ($delete) {
+            echo json_encode(['success' => 'OK']);
+        }
+
+        echo json_encode(['error' => 'error']);
     }
 
     public function user_edit($id)
@@ -164,5 +168,17 @@ class Pegawai extends BASE_Controller
                 echo json_encode(['success' => 'Success']);
             }
         }
+    }
+
+    public function user_destroy()
+    {
+        $id = $this->input->post('id');
+        $delete = $this->users_model->delete_user($id);
+
+        if ($delete) {
+            echo json_encode(['success' => 'OK']);
+        }
+
+        echo json_encode(['error' => 'error']);
     }
 }

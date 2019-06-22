@@ -15,13 +15,17 @@ class Users_model extends CI_Model
             $password = '123456';
 
             $data = array(
-                'nip' => $nip,
                 'nama_user' => $nama,
-                'level' => '0',
                 'password' => MD5($password),
+                'level' => '0',
             );
 
+            // insert ke tabel user
+            $query1 = $this->db->insert(self::$__table_user, $data);
+            $last_user_id = $this->db->insert_id();
+
             $data_pegawai = array(
+                'id_user' => $last_user_id,
                 'nip' => $nip,
                 'nama' => $nama,
                 'jenis_kelamin' => '0',
@@ -30,9 +34,6 @@ class Users_model extends CI_Model
 
             // insert ke tabel pegawai
             $query2 = $this->db->insert(self::$__table_pegawai, $data_pegawai);
-
-            // insert ke tabel user
-            $query1 = $this->db->insert(self::$__table_user, $data);
         }
     }
 
@@ -47,11 +48,11 @@ class Users_model extends CI_Model
         return $query;
     }
 
-    public function bio($nip)
+    public function bio($id_user)
     {
         $query = $this->db->select('*')
             ->from(self::$__table_pegawai)
-            ->where('nip', $nip)
+            ->where('id_user', $id_user)
             ->limit(1)->get();
 
         return $query;
@@ -59,33 +60,31 @@ class Users_model extends CI_Model
 
     public function register($nip, $username, $password, $nama, $jenis_kelamin, $alamat)
     {
+        $data_user = array(
+            'nama_user' => $username,
+            'password' => MD5($password),
+            'level' => '1',
+        );
+        $query = $this->db->insert(self::$__table_user, $data_user);
+
+        $last_user_id = $this->db->insert_id();
+        $attach = $this->insert_pegawai($last_user_id, $nip, $nama, $jenis_kelamin, $alamat);
+
+        return !$query || !$attach ? false : true;
+    }
+
+    public function insert_pegawai($id, $nip, $nama, $jenis_kelamin, $alamat)
+    {
         $data_pegawai = array(
+            'id_user' => $id,
             'nip' => $nip,
             'nama' => $nama,
             'jenis_kelamin' => $jenis_kelamin,
             'alamat' => $alamat,
         );
 
-        // insert ke tabel pegawai
-        $query = $this->db->insert(self::$__table_pegawai, $data_pegawai);
-
-        // panggil fungsi insert_user
-        $attach = $this->insert_user($nip, $username, $password);
-
-        return !$query || !$attach ? false : true;
-    }
-
-    public function insert_user($nip, $username, $password)
-    {
-        $data_user = array(
-            'nip' => $nip,
-            'nama_user' => $username,
-            'level' => '1',
-            'password' => MD5($password),
-        );
-
         // insert ke table user
-        $query = $this->db->insert(self::$__table_user, $data_user);
+        $query = $this->db->insert(self::$__table_pegawai, $data_pegawai);
 
         return !$query ? false : true;
     }
@@ -95,7 +94,7 @@ class Users_model extends CI_Model
         $this->db->select('*');
         $this->db->from($table);
         if ($table == self::$__table_user) {
-            return $this->db->where("(nip LIKE '%$search%' OR nama_user LIKE '%$search%')");
+            return $this->db->where("(nama_user LIKE '%$search%')");
         } elseif ($table == self::$__table_pegawai) {
             return $this->db->where("(nip LIKE '%$search%' OR nama LIKE '%$search%')");
         }
@@ -164,10 +163,18 @@ class Users_model extends CI_Model
         return !$query ? false : true;
     }
 
-    public function delete_data($id)
+    public function delete_pegawai($id)
     {
         $this->db->where('nip', $id);
         $this->db->delete('ms_pegawai');
+
+        return !$query ? false : true;
+    }
+    
+    public function delete_user($id)
+    {
+        $this->db->where('id_user', $id);
+        $this->db->delete('ms_user');
 
         return !$query ? false : true;
     }
@@ -175,9 +182,8 @@ class Users_model extends CI_Model
     // fungsi untuk mengambil data pegawai
     public function get_pegawai()
     {
-        $this->db->select('id_user, nama');
+        $this->db->select('nip, nama');
         $this->db->from(self::$__table_pegawai);
-        $this->db->join('ms_user', 'ms_user.nip = ms_pegawai.nip');
         $this->db->order_by('nama', 'ASC');
         $query = $this->db->get();
 

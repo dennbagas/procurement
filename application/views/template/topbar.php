@@ -52,12 +52,6 @@
                                     <span>NIP : <?=$this->session->userdata('ses_nip'); ?></span>
                                 </li>
                                 <li>
-                                    <a href="#">
-                                        <i class="fa fa-user"></i>
-                                        <span>Profil</span>
-                                    </a>
-                                </li>
-                                <li>
                                     <a href="<?=base_url() . 'login/logout'; ?>">
                                         <i class="fa fa-power-off text-danger"></i>
                                         <span>Log Out</span>

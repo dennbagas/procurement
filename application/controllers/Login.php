@@ -32,8 +32,8 @@ class Login extends CI_Controller
 
             // ... masukkan data ke dalam variabel $data
             $data = $auth->row_array();
-            $bio = $this->users_model->bio($data['nip'])->row_array();
-            
+            $bio = $this->users_model->bio($data['id_user'])->row_array();
+            print_r($bio);
             // set user data masuk
             $this->session->set_userdata('masuk', true);
 
@@ -50,7 +50,7 @@ class Login extends CI_Controller
             $this->session->set_userdata('ses_id', $data['id_user']);
 
             // set session data id user
-            $this->session->set_userdata('ses_nip', $data['nip']);
+            $this->session->set_userdata('ses_nip', $bio['nip']);
 
             // set session data nama user
             $this->session->set_userdata('ses_nama', $bio['nama']);

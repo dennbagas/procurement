@@ -54,7 +54,7 @@ $this->load->view('template/js');
 <script>
     $(document).ready(function () {
 
-        tabel = $('#example').DataTable({
+        var tabel = $('#example').DataTable({
             "processing": true,
             "serverSide": true,
             "ordering": true, // Set true agar bisa di sorting
@@ -117,7 +117,7 @@ $this->load->view('template/js');
         }).then(async (result) => {
             if (result.value) {
                 $.ajax({
-                    url: "<?php echo base_url('pegawai/destroy') ?>",
+                    url: "<?php echo base_url('pegawai/pegawai_destroy') ?>",
                     type: 'POST',
                     data: {
                         id: data
@@ -128,8 +128,7 @@ $this->load->view('template/js');
                             'Data Anda berhasil dihapus',
                             'success'
                         ).then((result) => {
-                            window.location.href = "<?php echo base_url(); ?>" +
-                                "pegawai";
+                            window.location.href = "<?php echo base_url("pegawai"); ?>";
                         });
                     }
                 });

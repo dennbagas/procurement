@@ -40,17 +40,17 @@ class Nota_Dinas_Pul extends BASE_Controller
         $data['segment'] = self::$_segment;
 
         // ambil data pegawai untuk di tampilkan di dropdown pemesan
-        $pegawai = $this->users_model->get_pegawai();
-        foreach ($pegawai as $value) {
-            $data['pegawai'][$value['id_user']] = $value['nama'];
-        }
-        
+        $data['pegawai'] = self::_list_pegawai();
+
         // ambil data tahun sekarang
         $current_year = self::_current_year();
 
+        // ambil data bulan sekarang dan konversi ke bentuk romawi
+        $current_month = romawi(self::_current_month());
+
         // format nomor surat
         $prefix_nomor_surat = 'PUL.'; //awalan nomor surat
-        $nomor_surat = '/ND/PL.02/VI/' . $current_year . ''; //akhiran  nomor surat
+        $nomor_surat = '/ND/PL.02/' . $current_month . '/' . $current_year . ''; //akhiran  nomor surat
 
         // ambil data terakhir
         $last_number = $this->get_last_number($prefix_nomor_surat, self::$_jenis_surat, $current_year);

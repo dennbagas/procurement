@@ -25,9 +25,6 @@ $this->load->view('template/sidebar');
                 <thead>
                     <tr>
                         <th>
-                            <center>NIP</center>
-                        </th>
-                        <th>
                             <center>Username</center>
                         </th>
                         <th>
@@ -67,9 +64,7 @@ $this->load->view('template/js');
                 [10, 25, 50],
                 [10, 25, 50]
             ], // Combobox Limit
-            "columns": [{
-                    "data": "nip"
-                },
+            "columns": [
                 {
                     "data": "nama_user"
                 },
@@ -79,7 +74,7 @@ $this->load->view('template/js');
                         let level = (data == 0) ? "Administrator" : "Pegawai";
                         return level;
                     },
-                    "orderable": false
+                    "orderable": true
                 },
                 {
                     "data": "id_user",
@@ -109,7 +104,7 @@ $this->load->view('template/js');
         }).then(async (result) => {
             if (result.value) {
                 $.ajax({
-                    url: "<?php echo base_url('pegawai/destroy') ?>",
+                    url: "<?php echo base_url('pegawai/user_destroy') ?>",
                     type: 'POST',
                     data: {
                         id: data
@@ -120,8 +115,7 @@ $this->load->view('template/js');
                             'Data Anda berhasil dihapus',
                             'success'
                         ).then((result) => {
-                            window.location.href = "<?php echo base_url(); ?>" +
-                                "pegawai";
+                            window.location.href = "<?php echo base_url("pegawai"); ?>";
                         });
                     }
                 });
