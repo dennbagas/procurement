@@ -3,7 +3,7 @@
 class Nota_Dinas_Pul extends BASE_Controller
 {
     // nama surat
-    protected static $_segment = 'nota-dinas-lelang-upil';
+    protected static $_segment = 'nota-dinas-pul';
     // jenis surat
     protected static $_jenis_surat = 'nota_dinas_pul';
 
@@ -50,7 +50,7 @@ class Nota_Dinas_Pul extends BASE_Controller
 
         // format nomor surat
         $prefix_nomor_surat = 'PUL.'; //awalan nomor surat
-        $nomor_surat = '/ND/PL.02//VI' . $current_year . ''; //akhiran  nomor surat
+        $nomor_surat = '/ND/PL.02/VI/' . $current_year . ''; //akhiran  nomor surat
 
         // ambil data terakhir
         $last_number = $this->get_last_number($prefix_nomor_surat, self::$_jenis_surat, $current_year);

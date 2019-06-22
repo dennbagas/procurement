@@ -6,9 +6,6 @@ class Surat_Lelang_Pl extends BASE_Controller
     protected static $_segment = 'surat-lelang-pl';
     // jenis surat
     protected static $_jenis_surat = 'surat_lelang_pl';
-    // format nomor surat
-    protected static $_prefix_nomor_surat = 'AP.I.JOG.'; //awalan nomor surat
-    protected static $_nomor_surat = '/PL.02/PST/2019-B'; //akhiran  nomor surat
 
     public function __construct()
     {
@@ -17,9 +14,10 @@ class Surat_Lelang_Pl extends BASE_Controller
         $this->load->helper('date_format_id');
     }
 
-    // halaman surat lelang pl
-    public function index()
+    // halaman berita acara
+    public function index($year = null)
     {
+        $data['year'] = $year;
         $data['segment'] = self::$_segment;
         $this->load->view('pages/surat/surat_lelang_pl/surat_lelang_pl', $data);
     }
@@ -44,14 +42,21 @@ class Surat_Lelang_Pl extends BASE_Controller
         // ambil data pegawai untuk di tampilkan di dropdown pemesan
         $pegawai = $this->users_model->get_pegawai();
         foreach ($pegawai as $value) {
-            $data['pegawai'][$value['id_pegawai']] = $value['nama'];
+            $data['pegawai'][$value['id_user']] = $value['nama'];
         }
-
-        // ambil data terakhir
-        $last_number = $this->get_last_number(self::$_prefix_nomor_surat, self::$_jenis_surat);
+        
+        // ambil data tahun sekarang
+        $current_year = self::_current_year();
 
         // format nomor surat
-        $data['nomor_surat'] = self::$_prefix_nomor_surat . $last_number . self::$_nomor_surat;
+        $prefix_nomor_surat = 'AP.I.JOG.'; //awalan nomor surat
+        $nomor_surat = '/PL.02/PST/' . $current_year . '-B'; //akhiran  nomor surat
+
+        // ambil data terakhir
+        $last_number = $this->get_last_number($prefix_nomor_surat, self::$_jenis_surat, $current_year);
+
+        // format nomor surat
+        $data['nomor_surat'] = $prefix_nomor_surat . $last_number . $nomor_surat;
 
         // tampilkan view
         $this->load->view('pages/surat/surat_lelang_pl/surat_lelang_pl_tambah', $data);
@@ -84,7 +89,7 @@ class Surat_Lelang_Pl extends BASE_Controller
         // ambil data pegawai untuk di tampilkan di dropdown pemesan
         $pegawai = $this->users_model->get_pegawai();
         foreach ($pegawai as $value) {
-            $list_pegawai[$value['id_pegawai']] = $value['nama'];
+            $list_pegawai[$value['id_user']] = $value['nama'];
         }
 
         // ambil data surat sesuai dengan id_surat
@@ -120,7 +125,7 @@ class Surat_Lelang_Pl extends BASE_Controller
     // function untuk hapus data
     public function destroy()
     {
-        $id = $this->input->post('id');
+        $id = $this->input->post('id_surat');
         $delete = $this->surat_model->delete_surat($id);
 
         if ($delete) {

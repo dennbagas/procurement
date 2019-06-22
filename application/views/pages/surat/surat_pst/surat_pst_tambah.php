@@ -24,7 +24,7 @@ $segment_url = base_url($segment);
             <?=custom_input(['name' => 'tanggal', 'placeholder' => 'Tanggal', 'id' => 'datepicker', 'autocomplete' => 'off']) ?>
             <?=custom_dropdown('Kegiatan', ['name' => 'kegiatan'], $options = [
                 'Pengumuman Hasil Evaluasi Dokumen Penawaran&Undangan Negosiasi/Klarifikasi' => 'Pengumuman Hasil Evaluasi Dokumen Penawaran&Undangan Negosiasi/Klarifikasi',
-                'Pengumuman Peniliaian Teknis' => 'Pengumuman Peniliaian Teknig',
+                'Pengumuman Peniliaian Teknis' => 'Pengumuman Peniliaian Teknis',
             ], '', ['id' => 'kegiatan']) ?>
             <?=custom_input(['name' => 'pekerjaan', 'placeholder' => 'Pekerjaan', 'id' => 'pekerjaan']) ?>
             <?=custom_input(['name' => 'tujuan', 'placeholder' => 'Tujuan', 'id' => 'tujuan']) ?>

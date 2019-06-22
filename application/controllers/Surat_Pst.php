@@ -49,7 +49,7 @@ class Surat_Pst extends BASE_Controller
         $current_year = self::_current_year();
 
         // format nomor surat
-        $prefix_nomor_surat = 'PST'; //awalan nomor surat
+        $prefix_nomor_surat = 'PST.'; //awalan nomor surat
         $nomor_surat = '/PL.02/' . $current_year . '-B'; //akhiran  nomor surat
 
         // ambil data terakhir
