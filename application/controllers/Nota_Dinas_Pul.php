@@ -87,10 +87,7 @@ class Nota_Dinas_Pul extends BASE_Controller
         $segment = self::$_segment;
 
         // ambil data pegawai untuk di tampilkan di dropdown pemesan
-        $pegawai = $this->users_model->get_pegawai();
-        foreach ($pegawai as $value) {
-            $list_pegawai[$value['id_user']] = $value['nama'];
-        }
+        $list_pegawai = self::_list_pegawai();
 
         // ambil data surat sesuai dengan id_surat
         $data_surat = $this->surat_model->get_surat_edit($id);

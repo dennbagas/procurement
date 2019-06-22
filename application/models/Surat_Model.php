@@ -59,7 +59,7 @@ class Surat_model extends CI_model
             'kegiatan' => $data['kegiatan'],
             'pekerjaan' => $data['pekerjaan'],
             'tujuan' => $data['tujuan'],
-            'id_user' => $data['pemesan'],
+            'nip' => $data['pemesan'],
             'jenis' => $data['jenis'],
         );
 

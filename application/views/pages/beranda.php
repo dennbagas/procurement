@@ -83,6 +83,15 @@ $this->load->view('template/js');
                     borderColor: borderColor,
                     borderWidth: 1
                 }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
             }
         });
     };
