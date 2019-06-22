@@ -24,10 +24,12 @@ $segment_url = base_url($segment);
             <?=custom_input_readonly(['name' => 'nomor_surat', 'placeholder' => 'Nomor Surat', 'id' => 'nomor_surat'], $value = $data_surat['nomor_surat']) ?>
             <?=custom_input(['name' => 'tanggal', 'placeholder' => 'Tanggal', 'id' => 'datepicker'], $value = $tanggal) ?>
             <?=custom_dropdown('Kegiatan', ['name' => 'kegiatan'], $options = [
+                'ND Laporan Hasil Proses Lelang' => 'ND Laporan Hasil Proses Lelang',
+                'ND Laporan Hasil Proses Penunjukan Langsung' => 'ND Laporan Hasil Proses Penunjukan Langsung',
                 'ND Usulan Penetapan Pemenang' => 'ND Usulan Penetapan Pemenang',
                 'ND Usulan Penetapan Pelaksana' => 'ND Usulan Penetapan Pelaksana',
                 'ND Penetapan Pemenang' => 'ND Penetapan Pemenang',
-                'ND Penetapan Pelaksana' => 'BA Evaluasi Dokumen Penawaran',
+                'ND Penetapan Pelaksana' => 'ND Penetapan Pelaksana',
                 'ND Laporan Berakhirnya Masa Sanggah' => 'ND Laporan Berakhirnya Masa Sanggah',
             ], $data_surat['kegiatan'], ['id' => 'kegiatan'])
             ?>
