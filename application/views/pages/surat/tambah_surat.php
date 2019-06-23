@@ -7,6 +7,12 @@ $segment_url = base_url($segment);
 ?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
+    <div style="float:left;">
+        <a href="<?=$segment_url ?>" class="btn btn-sm btn-primary">
+            <i class="fa fa-arrow-circle-left"></i>
+            Kembali
+        </a>
+    </div>
     <h1>
         <center>Tambah <?=$judul ?></center>
     </h1>
