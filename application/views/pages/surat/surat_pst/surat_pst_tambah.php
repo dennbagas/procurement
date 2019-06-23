@@ -29,13 +29,17 @@ $segment_url = base_url($segment);
             <?=custom_input_readonly(['name' => 'nomor_surat', 'placeholder' => 'Nomor Surat', 'id' => 'nomor_surat'], $value = $nomor_surat) ?>
             <?=custom_input(['name' => 'tanggal', 'placeholder' => 'Tanggal', 'id' => 'datepicker', 'autocomplete' => 'off']) ?>
             <?=custom_dropdown('Kegiatan', ['name' => 'kegiatan'], $options = [
-                'Pengumuman Hasil Evaluasi Dokumen Penawaran&Undangan Negosiasi/Klarifikasi' => 'Pengumuman Hasil Evaluasi Dokumen Penawaran&Undangan Negosiasi/Klarifikasi',
-                'Pengumuman Peniliaian Teknis' => 'Pengumuman Peniliaian Teknis',
+                'Pengumuman Hasil Pembukaan Dokumen Penawaran' => 'Pengumuman Hasil Pembukaan Dokumen Penawaran',
+                'Pengumuman Hasil Evaluasi Pembukaan Dokumen Penawaran' => 'Pengumuman Hasil Evaluasi Pembukaan Dokumen Penawaran',
+                'Pengumuman Hasil Penilaian Teknis' => 'Pengumuman Hasil Penilaian Teknis',
+                'Undangan Negosiasi' => 'Undangan Negosiasi',
+                'Surat Klarifikasi Harga' => 'Surat Klarifikasi Harga',
+                'Pengumuman Pemenang' => 'Pengumuman Pemenang',
             ], '', ['id' => 'kegiatan']) ?>
             <?=custom_input(['name' => 'pekerjaan', 'placeholder' => 'Pekerjaan', 'id' => 'pekerjaan']) ?>
             <?=custom_input(['name' => 'tujuan', 'placeholder' => 'Tujuan', 'id' => 'tujuan']) ?>
             <?=custom_dropdown('Pemesan', ['name' => 'pemesan'],
-                $options = $pegawai, 'Pengumuman Hasil Evaluasi Dokumen Penawaran&Undangan Negosiasi/Klarifikasi', ['id' => 'pemesan']) ?>
+                $options = $pegawai, 'Pengumuman Hasil Pembukaan Dokumen Penawaran', ['id' => 'pemesan']) ?>
             <?=form_hidden('jenis', 'surat_pst'); ?>
             <?=form_input(['type' => 'hidden', 'name' => 'tanggal', 'id' => 'altValue']) ?>
             <?=custom_submit(['name' => 'mysubmit', 'value' => 'Tambah', 'id' => 'submit']); ?>

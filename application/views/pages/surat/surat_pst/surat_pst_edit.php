@@ -30,8 +30,12 @@ $segment_url = base_url($segment);
             <?=custom_input_readonly(['name' => 'nomor_surat', 'placeholder' => 'Nomor Surat', 'id' => 'nomor_surat'], $value = $data_surat['nomor_surat']) ?>
             <?=custom_input(['name' => 'tanggal', 'placeholder' => 'Tanggal', 'id' => 'datepicker'], $value = $tanggal) ?>
             <?=custom_dropdown('Kegiatan', ['name' => 'kegiatan'], $options = [
-                'Pengumuman Hasil Evaluasi Dokumen Penawaran&Undangan Negosiasi/Klarifikasi' => 'Pengumuman Hasil Evaluasi Dokumen Penawaran&Undangan Negosiasi/Klarifikasi',
-                'Pengumuman Penilaian Teknis' => 'BA Aanwijzing',
+                'Pengumuman Hasil Pembukaan Dokumen Penawaran' => 'Pengumuman Hasil Pembukaan Dokumen Penawaran',
+                'Pengumuman Hasil Evaluasi Pembukaan Dokumen Penawaran' => 'Pengumuman Hasil Evaluasi Pembukaan Dokumen Penawaran',
+                'Pengumuman Hasil Penilaian Teknis' => 'Pengumuman Hasil Penilaian Teknis',
+                'Undangan Negosiasi' => 'Undangan Negosiasi',
+                'Surat Klarifikasi Harga' => 'Surat Klarifikasi Harga',
+                'Pengumuman Pemenang' => 'Pengumuman Pemenang',
             ], $data_surat['kegiatan'], ['id' => 'kegiatan'])
             ?>
             <?=custom_input(['name' => 'pekerjaan', 'placeholder' => 'Pekerjaan', 'id' => 'pekerjaan'], $value = $data_surat['pekerjaan']) ?>

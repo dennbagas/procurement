@@ -30,16 +30,17 @@ $segment_url = base_url($segment);
             <?=custom_input_readonly(['name' => 'nomor_surat', 'placeholder' => 'Nomor Surat', 'id' => 'nomor_surat'], $value = $data_surat['nomor_surat']) ?>
             <?=custom_input(['name' => 'tanggal', 'placeholder' => 'Tanggal', 'id' => 'datepicker'], $value = $tanggal) ?>
             <?=custom_dropdown('Kegiatan', ['name' => 'kegiatan'], $options = [
-    'BA Pra Aanwijzing' => 'BA Pra Aanwijzing',
-    'BA Aanwijzing' => 'BA Aanwijzing',
-    'BA Pembukaan Dokumen Penawaran' => 'BA Pembukaan Dokumen Penawaran',
-    'BA Evaluasi Dokumen Penawaran' => 'BA Evaluasi Dokumen Penawaran',
-    'BA Negosiasi/Klarifikasi Harga' => 'BA Negosiasi/Klarifikasi Harga',
-    'BA Kewajaran Harga' => 'BA Kewajaran Harga',
-    'BA Hasil Pelelangan' => 'BA Hasil Pelelangan',
-    'BA Hasil Penunjukan Langsung' => 'BA Hasil Penunjukan Langsung',
-], $data_surat['kegiatan'], ['id' => 'kegiatan'])
-?>
+                'BA Pra Aanwijzing' => 'BA Pra Aanwijzing',
+                'BA Aanwijzing' => 'BA Aanwijzing',
+                'BA Pembukaan Dokumen Penawaran' => 'BA Pembukaan Dokumen Penawaran',
+                'BA Evaluasi Dokumen Penawaran' => 'BA Evaluasi Dokumen Penawaran',
+                'BA Penilaian Teknis' => 'BA Penilaian Teknis',
+                'BA Negosiasi/Klarifikasi Harga' => 'BA Negosiasi/Klarifikasi Harga',
+                'BA Kewajaran Harga' => 'BA Kewajaran Harga',
+                'BA Hasil Pelelangan' => 'BA Hasil Pelelangan',
+                'BA Hasil Penunjukan Langsung' => 'BA Hasil Penunjukan Langsung',
+            ], $data_surat['kegiatan'], ['id' => 'kegiatan'])
+            ?>
             <?=custom_input(['name' => 'pekerjaan', 'placeholder' => 'Pekerjaan', 'id' => 'pekerjaan'], $value = $data_surat['pekerjaan']) ?>
             <?=custom_input(['name' => 'tujuan', 'placeholder' => 'Tujuan', 'id' => 'tujuan'], $value = $data_surat['tujuan']) ?>
             <?=custom_dropdown('Pemesan', ['name' => 'pemesan'],

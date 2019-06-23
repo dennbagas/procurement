@@ -35,6 +35,7 @@ $segment_url = base_url($segment);
                 'ND Pembuatan HPS/OE (Owner Estimate)' => 'ND Pembuatan HPS/OE (Owner Estimate)',
                 'ND Pembukaan Dokumen Penawaran' => 'ND Pembukaan Dokumen Penawaran',
                 'ND Evaluasi Dokumen Penawaran' => 'ND Evaluasi Dokumen Penawaran',
+                'ND Penilaian Teknis' => 'ND Penilaian Teknis',
                 'ND Undangan Negosiasi' => 'ND Undangan Negosiasi',
                 'ND Laporan Hasil Lelang' => 'ND Laporan Hasil Lelang',
                 'ND Laporan Hasil Penunjukan Langsung' => 'ND Laporan Hasil Penunjukan Langsung',

@@ -39,6 +39,7 @@ $segment_url = base_url($segment);
                 'BA Aanwijzing' => 'BA Aanwijzing',
                 'BA Pembukaan Dokumen Penawaran' => 'BA Pembukaan Dokumen Penawaran',
                 'BA Evaluasi Dokumen Penawaran' => 'BA Evaluasi Dokumen Penawaran',
+                'BA Penilaian Teknis' => 'BA Penilaian Teknis',
                 'BA Negosiasi/Klarifikasi Harga' => 'BA Negosiasi/Klarifikasi Harga',
                 'BA Kewajaran Harga' => 'BA Kewajaran Harga',
                 'BA Hasil Pelelangan' => 'BA Hasil Pelelangan',
