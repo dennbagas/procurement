@@ -23,13 +23,13 @@ $this->load->view('template/sidebar');
             <?=custom_input(['id' => 'nama', 'name' => 'nama', 'placeholder' => 'Nama', 'value' => $data_user['nama']]) ?>
             <?=custom_input(['id' => 'alamat', 'name' => 'alamat', 'placeholder' => 'Alamat', 'value' => $data_user['alamat']]) ?>
             <?=custom_dropdown('Jenis Kelamin', [
-                'name' => 'jenis_kelamin',
-                'value' => $data_user['jenis_kelamin'],
-            ],
-                $options = array('0' => 'Laki-laki', '1' => 'Perempuan'),
-                $selected = array('0' => 'Laki-laki'), ['id' => 'jenis_kelamin'])
-            ?>
-            <?=custom_submit(['name' => 'mysubmit', 'value' => 'Simpan', 'id' => 'submit']); ?>
+                    'name' => 'jenis_kelamin',
+                    'value' => $data_user['jenis_kelamin'],
+                ],
+                    $options = array('0' => 'Laki-laki', '1' => 'Perempuan'),
+                    $selected = array('0' => 'Laki-laki'), ['id' => 'jenis_kelamin'])
+                ?>
+            <?=custom_submit(['name' => 'mysubmit', 'id' => 'submit'], 'Simpan', '', base_url('pegawai')); ?>
 
             <?=form_close(); ?>
         </div>

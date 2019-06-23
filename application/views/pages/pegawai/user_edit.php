@@ -21,7 +21,7 @@ $this->load->view('template/sidebar');
             <?=form_input(['type' => 'hidden', 'name' => 'id', 'id' => 'id'], $value = $data_user['id_user']) ?>
             <?=custom_input(['id' => 'nama_user', 'name' => 'user_name', 'placeholder' => 'Username', 'value' => $data_user['nama_user']]) ?>
             <?=custom_password(['id' => 'password', 'name' => 'password', 'placeholder' => 'Password']); ?>
-            <?=custom_submit(['name' => 'mysubmit', 'value' => 'Simpan', 'id' => 'submit']); ?>
+            <?=custom_submit(['name' => 'mysubmit', 'id' => 'submit'], 'Simpan', '', base_url('pegawai/user')); ?>
 
             <?=form_close(); ?>
         </div>
