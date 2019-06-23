@@ -14,21 +14,15 @@ $segment_url = base_url($segment);
             Kembali
         </a>
     </div>
-    <div style="float:left;">
-        <a href="<?=$segment_url ?>" class="btn btn-sm btn-primary">
-            <i class="fa fa-arrow-circle-left"></i>
-            Kembali
-        </a>
-    </div>
     <h1>
-        <center>Edit Surat <?=$judul ?></center>
+        <center>Edit <?=$judul ?></center>
     </h1>
 </section>
 
 <section class="content">
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Edit Surat <?=$judul ?></h3>
+            <h3 class="box-title">Edit <?=$judul ?></h3>
         </div>
         <div class="box-body">
             <?=$this->session->flashdata('message'); ?>
@@ -41,7 +35,7 @@ $segment_url = base_url($segment);
             <?=custom_dropdown('Pemesan', ['name' => 'pemesan'], $options = $pegawai, $data_surat['nip'], ['id' => 'pemesan']) ?>
             <?=form_input(['type' => 'hidden', 'name' => 'id', 'id' => 'id'], $value = $data_surat['id_surat']) ?>
             <?=form_input(['type' => 'hidden', 'name' => 'tanggal', 'id' => 'altValue'], $value = $data_surat['tanggal']) ?>
-            <?=custom_submit(['name' => 'mysubmit', 'value' => 'Simpan', 'id' => 'submit']); ?>
+            <?=custom_submit(['name' => 'mysubmit', 'id' => 'submit'], 'Simpan', '', $segment_url); ?>
             <?=form_close(); ?>
         </div>
     </div>

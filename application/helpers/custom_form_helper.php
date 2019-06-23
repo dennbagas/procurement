@@ -57,7 +57,7 @@ if (!function_exists('custom_dropdown')) {
 }
 
 if (!function_exists('custom_submit')) {
-    function custom_submit($data = '', $value = '', $extra = '')
+    function custom_submit($data = '', $value = '', $extra = '', $segment = '')
     {
         $defaults = array(
             'type' => 'submit',
@@ -69,8 +69,12 @@ if (!function_exists('custom_submit')) {
         return
         '<div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <input ' . _parse_form_attributes($data, $defaults) . _attributes_to_string($extra) . " />
+                <input ' . _parse_form_attributes($data, $defaults) . _attributes_to_string($extra) . ' />
+
+                <a href="' . $segment . '" class="btn btn-danger">
+                    Batal
+                </a>
             </div>
-        </div>";
+        </div>';
     }
 }

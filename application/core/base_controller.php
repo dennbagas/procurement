@@ -10,7 +10,20 @@ class BASE_Controller extends CI_Controller
             redirect($url);
         }
         $this->load->library(array('form_validation'));
-        $this->load->helper(array('url', 'form', 'custom_form', 'flash_message', 'string_extractor', 'date_format_id'));
+        $this->load->helper(array(
+            'url', 'form', 'custom_form', 'flash_message',
+            'string_extractor', 'date_format_id', 'string_translation'
+        ));
+    }
+
+    protected function _segment()
+    {
+        return dashed_lower_case(static::$_nama_surat);
+    }
+    
+    protected function _jenis_surat()
+    {
+        return underscored_lower_case(static::$_nama_surat);
     }
 
     protected function _current_year()
