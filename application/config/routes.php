@@ -54,3 +54,9 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = TRUE;
 
 $route['berita-acara/tahun/(:any)'] = 'berita_acara/index/$1';
+$route['nota-dinas-gm/tahun/(:any)'] = 'nota_dinas_gm/index/$1';
+$route['nota-dinas-pst/tahun/(:any)'] = 'nota_dinas_pst/index/$1';
+$route['nota-dinas-pul/tahun/(:any)'] = 'nota_dinas_pul/index/$1';
+$route['surat-gm/tahun/(:any)'] = 'surat_gm/index/$1';
+$route['surat-lelang/tahun/(:any)'] = 'surat_lelang/index/$1';
+$route['surat-pst/tahun/(:any)'] = 'surat_pst/index/$1';

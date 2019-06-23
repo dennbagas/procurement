@@ -8,6 +8,12 @@ $segment_url = base_url($segment);
 ?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
+    <div style="float:left;">
+        <a href="<?=$segment_url ?>" class="btn btn-sm btn-primary">
+            <i class="fa fa-arrow-circle-left"></i>
+            Kembali
+        </a>
+    </div>
     <h1>
         <center>Edit Surat Berita Acara</center>
     </h1>
@@ -24,21 +30,21 @@ $segment_url = base_url($segment);
             <?=custom_input_readonly(['name' => 'nomor_surat', 'placeholder' => 'Nomor Surat', 'id' => 'nomor_surat'], $value = $data_surat['nomor_surat']) ?>
             <?=custom_input(['name' => 'tanggal', 'placeholder' => 'Tanggal', 'id' => 'datepicker'], $value = $tanggal) ?>
             <?=custom_dropdown('Kegiatan', ['name' => 'kegiatan'], $options = [
-                'BA Pra Aanwijzing' => 'BA Pra Aanwijzing',
-                'BA Aanwijzing' => 'BA Aanwijzing',
-                'BA Pembukaan Dokumen Penawaran' => 'BA Pembukaan Dokumen Penawaran',
-                'BA Evaluasi Dokumen Penawaran' => 'BA Evaluasi Dokumen Penawaran',
-                'BA Negosiasi/Klarifikasi Harga' => 'BA Negosiasi/Klarifikasi Harga',
-                'BA Kewajaran Harga' => 'BA Kewajaran Harga',
-                'BA Hasil Pelelangan' => 'BA Hasil Pelelangan',
-                'BA Hasil Penunjukan Langsung' => 'BA Hasil Penunjukan Langsung',
-            ], $data_surat['kegiatan'], ['id' => 'kegiatan'])
-            ?>
+    'BA Pra Aanwijzing' => 'BA Pra Aanwijzing',
+    'BA Aanwijzing' => 'BA Aanwijzing',
+    'BA Pembukaan Dokumen Penawaran' => 'BA Pembukaan Dokumen Penawaran',
+    'BA Evaluasi Dokumen Penawaran' => 'BA Evaluasi Dokumen Penawaran',
+    'BA Negosiasi/Klarifikasi Harga' => 'BA Negosiasi/Klarifikasi Harga',
+    'BA Kewajaran Harga' => 'BA Kewajaran Harga',
+    'BA Hasil Pelelangan' => 'BA Hasil Pelelangan',
+    'BA Hasil Penunjukan Langsung' => 'BA Hasil Penunjukan Langsung',
+], $data_surat['kegiatan'], ['id' => 'kegiatan'])
+?>
             <?=custom_input(['name' => 'pekerjaan', 'placeholder' => 'Pekerjaan', 'id' => 'pekerjaan'], $value = $data_surat['pekerjaan']) ?>
             <?=custom_input(['name' => 'tujuan', 'placeholder' => 'Tujuan', 'id' => 'tujuan'], $value = $data_surat['tujuan']) ?>
             <?=custom_dropdown('Pemesan', ['name' => 'pemesan'],
-                $options = $pegawai, $data_surat['nip'], ['id' => 'pemesan'])
-            ?>
+    $options = $pegawai, $data_surat['nip'], ['id' => 'pemesan'])
+?>
             <?=form_input(['type' => 'hidden', 'name' => 'id', 'id' => 'id'], $value = $data_surat['id_surat']) ?>
             <?=form_input(['type' => 'hidden', 'name' => 'tanggal', 'id' => 'altValue'], $value = $data_surat['tanggal']) ?>
             <?=custom_submit(['name' => 'mysubmit', 'value' => 'Simpan', 'id' => 'submit']); ?>
@@ -90,7 +96,7 @@ $this->load->view('template/js');
      */
     function showSuccesDialog() {
         Swal.fire('Sukses', 'Berhasil update data surat', 'success')
-            .then((result) => redirect("<?=$segment_url?>"));
+            .then((result) => redirect("<?=$segment_url ?>"));
     };
 </script>
 

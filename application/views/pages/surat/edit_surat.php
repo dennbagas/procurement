@@ -14,31 +14,31 @@ $segment_url = base_url($segment);
             Kembali
         </a>
     </div>
+    <div style="float:left;">
+        <a href="<?=$segment_url ?>" class="btn btn-sm btn-primary">
+            <i class="fa fa-arrow-circle-left"></i>
+            Kembali
+        </a>
+    </div>
     <h1>
-        <center>Edit Surat PST</center>
+        <center>Edit Surat <?=$judul ?></center>
     </h1>
 </section>
 
 <section class="content">
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Edit Surat PST</h3>
+            <h3 class="box-title">Edit Surat <?=$judul ?></h3>
         </div>
         <div class="box-body">
             <?=$this->session->flashdata('message'); ?>
             <?=form_open('', ['id' => 'forms', 'class' => 'form-horizontal', 'style' => 'width:70%;margin:auto;', 'name' => "submit"]); ?>
             <?=custom_input_readonly(['name' => 'nomor_surat', 'placeholder' => 'Nomor Surat', 'id' => 'nomor_surat'], $value = $data_surat['nomor_surat']) ?>
             <?=custom_input(['name' => 'tanggal', 'placeholder' => 'Tanggal', 'id' => 'datepicker'], $value = $tanggal) ?>
-            <?=custom_dropdown('Kegiatan', ['name' => 'kegiatan'], $options = [
-                'Pengumuman Hasil Evaluasi Dokumen Penawaran&Undangan Negosiasi/Klarifikasi' => 'Pengumuman Hasil Evaluasi Dokumen Penawaran&Undangan Negosiasi/Klarifikasi',
-                'Pengumuman Penilaian Teknis' => 'BA Aanwijzing',
-            ], $data_surat['kegiatan'], ['id' => 'kegiatan'])
-            ?>
+            <?=custom_dropdown('Kegiatan', ['name' => 'kegiatan'], $options = $kegiatan, $data_surat['kegiatan'], ['id' => 'kegiatan']) ?>
             <?=custom_input(['name' => 'pekerjaan', 'placeholder' => 'Pekerjaan', 'id' => 'pekerjaan'], $value = $data_surat['pekerjaan']) ?>
             <?=custom_input(['name' => 'tujuan', 'placeholder' => 'Tujuan', 'id' => 'tujuan'], $value = $data_surat['tujuan']) ?>
-            <?=custom_dropdown('Pemesan', ['name' => 'pemesan'],
-                $options = $pegawai, $data_surat['nip'], ['id' => 'pemesan'])
-            ?>
+            <?=custom_dropdown('Pemesan', ['name' => 'pemesan'], $options = $pegawai, $data_surat['nip'], ['id' => 'pemesan']) ?>
             <?=form_input(['type' => 'hidden', 'name' => 'id', 'id' => 'id'], $value = $data_surat['id_surat']) ?>
             <?=form_input(['type' => 'hidden', 'name' => 'tanggal', 'id' => 'altValue'], $value = $data_surat['tanggal']) ?>
             <?=custom_submit(['name' => 'mysubmit', 'value' => 'Simpan', 'id' => 'submit']); ?>
@@ -55,7 +55,7 @@ $this->load->view('template/js');
     jQuery(document).ready(function () {
         $("#submit").click(function (event) {
             event.preventDefault();
-            var url = "<?php echo base_url(); ?>" + "surat-pst/update";
+            var url = "<?php echo base_url($segment . '/update'); ?>";
             var data = {
                 // id dari input form
                 id: $("#id").val(),
@@ -65,7 +65,7 @@ $this->load->view('template/js');
                 pekerjaan: $("#pekerjaan").val(),
                 tujuan: $("#tujuan").val(),
                 pemesan: $("#pemesan").val(),
-                jenis: 'surat_pst',
+                jenis: "<?=$jenis_surat ?>",
             };
 
             $.ajax({
@@ -90,7 +90,7 @@ $this->load->view('template/js');
      */
     function showSuccesDialog() {
         Swal.fire('Sukses', 'Berhasil update data surat', 'success')
-            .then((result) => redirect("<?=$segment_url?>"));
+            .then((result) => redirect("<?=$segment_url ?>"));
     };
 </script>
 
