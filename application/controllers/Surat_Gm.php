@@ -66,7 +66,7 @@ class Surat_Gm extends BASE_Controller
         // format nomor surat
         // setting format penomoran surat di tulis di dalam koding dibawah ini
         $prefix_nomor_surat = 'AP.I.'; //awalan nomor surat
-        $nomor_surat = '/PL.02/KTRK/2019.Jog-B' . $current_year . ''; //akhiran  nomor surat
+        $nomor_surat = '/PL.02/KTRK/' . $current_year . '/GM.JOG-B'; //akhiran  nomor surat
 
         // ambil data terakhir
         $last_number = $this->get_last_number($prefix_nomor_surat, self::_jenis_surat(), $current_year);

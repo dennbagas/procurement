@@ -7,8 +7,12 @@ class Surat_Pst extends BASE_Controller
 
     // opsi kegiatan surat
     protected static $_kegiatan = [
-        'Pengumuman Hasil Evaluasi Dokumen Penawaran&Undangan Negosiasi/Klarifikasi' => 'Pengumuman Hasil Evaluasi Dokumen Penawaran&Undangan Negosiasi/Klarifikasi',
-        'Pengumuman Peniliaian Teknis' => 'Pengumuman Peniliaian Teknis',
+        'Pengumuman Hasil Pembukaan Dokumen Penawaran' => 'Pengumuman Hasil Pembukaan Dokumen Penawaran',
+        'Pengumuman Hasil Evaluasi Pembukaan Dokumen Penawaran' => 'Pengumuman Hasil Evaluasi Dokumen Penawaran',
+        'Pengumuman Hasil Penilaian Teknis' => 'Pengumuman Hasil Penilaian Teknis',
+        'Undangan Negosiasi' => 'Undangan Negosiasi',
+        'Surat Klarifikasi' => 'Surat Klarifikasi',
+        'Pengumuman Pemenang' => 'Pengumuman Pemenang',
     ];
 
     public function __construct()

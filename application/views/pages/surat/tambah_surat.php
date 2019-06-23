@@ -8,14 +8,14 @@ $segment_url = base_url($segment);
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        <center>Tambah Surat <?=$judul ?></center>
+        <center>Tambah <?=$judul ?></center>
     </h1>
 </section>
 
 <section class="content">
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Tambah Surat <?=$judul ?></h3>
+            <h3 class="box-title">Tambah <?=$judul ?></h3>
         </div>
         <div class="box-body">
             <?=$this->session->flashdata('message'); ?>

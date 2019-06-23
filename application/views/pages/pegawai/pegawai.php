@@ -80,7 +80,7 @@ $this->load->view('template/js');
                 {
                     "data": "jenis_kelamin",
                     "render": function (data, type, row) { // Tampilkan kolom Role
-                        let jenis_kelamin = (data == 0) ? "Laki-laki" : "Wanita";
+                        let jenis_kelamin = (data == 0) ? "Laki-laki" : "Perempuan";
                         return jenis_kelamin;
                     },
                     "orderable": false

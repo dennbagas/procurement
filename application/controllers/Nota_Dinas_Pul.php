@@ -7,6 +7,8 @@ class Nota_Dinas_Pul extends BASE_Controller
 
     // opsi kegiatan surat
     protected static $_kegiatan = [
+        'ND Laporan Hasil Proses Lelang' => 'ND Laporan Hasil Proses Lelang',
+        'ND Laporan Hasil Penunjukan Langsung' => 'ND Laporan Hasil Penunjukan Langsung',
         'ND Usulan Penetapan Pemenang' => 'ND Usulan Penetapan Pemenang',
         'ND Usulan Penetapan Pelaksana' => 'ND Usulan Penetapan Pelaksana',
         'ND Penetapan Pemenang' => 'ND Penetapan Pemenang',
