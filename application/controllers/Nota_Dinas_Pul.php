@@ -3,9 +3,16 @@
 class Nota_Dinas_Pul extends BASE_Controller
 {
     // nama surat
-    protected static $_segment = 'nota-dinas-pul';
-    // jenis surat
-    protected static $_jenis_surat = 'nota_dinas_pul';
+    protected static $_nama_surat = 'Nota Dinas PUL';
+
+    // opsi kegiatan surat
+    protected static $_kegiatan = [
+        'ND Usulan Penetapan Pemenang' => 'ND Usulan Penetapan Pemenang',
+        'ND Usulan Penetapan Pelaksana' => 'ND Usulan Penetapan Pelaksana',
+        'ND Penetapan Pemenang' => 'ND Penetapan Pemenang',
+        'ND Penetapan Pelaksana' => 'BA Evaluasi Dokumen Penawaran',
+        'BA Laporan Berakhirnya Masa Sanggah' => 'BA Laporan Berakhirnya Masa Sanggah',
+    ];
 
     public function __construct()
     {
@@ -17,15 +24,16 @@ class Nota_Dinas_Pul extends BASE_Controller
     // halaman berita acara
     public function index($year = null)
     {
+        $data['judul'] = self::$_nama_surat;
         $data['year'] = $year;
-        $data['segment'] = self::$_segment;
-        $this->load->view('pages/surat/nota_dinas_pul/nota_dinas_pul', $data);
+        $data['segment'] = self::_segment();
+        $this->load->view('pages/surat/index', $data);
     }
 
     public function data_json()
     {
         // panggil fungsi return_json dari BaseController dengan model 'surat_model' dan 'jenis_surat'
-        $data = $this->return_json_surat('surat_model', self::$_jenis_surat);
+        $data = $this->return_json_surat('surat_model', self::_jenis_surat());
 
         header('Content-Type: application/json');
         echo json_encode($data);
@@ -37,29 +45,40 @@ class Nota_Dinas_Pul extends BASE_Controller
         // load model users_model karena data pegawai ada di users_model
         $this->load->model('users_model');
 
-        $data['segment'] = self::$_segment;
+        // title halaman
+        $data['judul'] = self::$_nama_surat;
+
+        // segment surat
+        $data['segment'] = self::_segment();
+
+        // jenis surat
+        $data['jenis_surat'] = self::_jenis_surat();
 
         // ambil data pegawai untuk di tampilkan di dropdown pemesan
         $data['pegawai'] = self::_list_pegawai();
 
+        // opsi kegiatan
+        $data['kegiatan'] = self::$_kegiatan;
+
+        // ambil data bulan sekarang
+        $current_month = romawi(self::_current_month());
+
         // ambil data tahun sekarang
         $current_year = self::_current_year();
 
-        // ambil data bulan sekarang dan konversi ke bentuk romawi
-        $current_month = romawi(self::_current_month());
-
         // format nomor surat
+        // setting format penomoran surat di tulis di dalam koding dibawah ini
         $prefix_nomor_surat = 'PUL.'; //awalan nomor surat
         $nomor_surat = '/ND/PL.02/' . $current_month . '/' . $current_year . ''; //akhiran  nomor surat
 
         // ambil data terakhir
-        $last_number = $this->get_last_number($prefix_nomor_surat, self::$_jenis_surat, $current_year);
+        $last_number = $this->get_last_number($prefix_nomor_surat, self::_jenis_surat(), $current_year);
 
         // format nomor surat
         $data['nomor_surat'] = $prefix_nomor_surat . $last_number . $nomor_surat;
 
         // tampilkan view
-        $this->load->view('pages/surat/nota_dinas_pul/nota_dinas_pul_tambah', $data);
+        $this->load->view('pages/surat/tambah_surat', $data);
     }
 
     public function simpan()
@@ -84,16 +103,35 @@ class Nota_Dinas_Pul extends BASE_Controller
     {
         $this->load->model('users_model');
 
-        $segment = self::$_segment;
+        // title halaman
+        $judul = self::$_nama_surat;
+
+        // segment surat
+        $segment = self::_segment();
+
+        // jenis surat
+        $jenis_surat = self::_jenis_surat();
 
         // ambil data pegawai untuk di tampilkan di dropdown pemesan
         $list_pegawai = self::_list_pegawai();
 
+        // opsi kegiatan
+        $kegiatan = self::$_kegiatan;
+
         // ambil data surat sesuai dengan id_surat
         $data_surat = $this->surat_model->get_surat_edit($id);
 
-        $data = ['data_surat' => $data_surat[0], 'pegawai' => $list_pegawai, 'segment' => $segment];
-        $this->load->view('pages/surat/nota_dinas_pul/nota_dinas_pul_edit', $data);
+        $data = [
+            'judul' => $judul,
+            'segment' => $segment,
+            'jenis_surat' => $jenis_surat,
+            'kegiatan' => $kegiatan,
+            'data_surat' => $data_surat[0],
+            'pegawai' => $list_pegawai,
+        ];
+
+        $this->load->view('pages/surat/edit_surat', $data);
+
     }
 
     public function update()

@@ -9,7 +9,7 @@ $segment_url = base_url($segment);
 <section class="content-header">
     <h1>
         <center>
-            Nota Dinas GM
+            <?=$judul ?>
         </center>
     </h1>
 </section>
@@ -17,9 +17,9 @@ $segment_url = base_url($segment);
 <section class="content">
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Nota Dinas GM</h3>
+            <h3 class="box-title"><?=$judul ?></h3>
             <div class="box-tools pull-right">
-                <a href="<?=base_url() . 'nota-dinas-gm/tambah' ?>" class="btn btn-success">
+                <a href="<?=base_url($segment . '/tambah') ?>" class="btn btn-success">
                     <i class="fa fa-pencil"></i> <span>Tambah Data</span>
                 </a>
             </div>
@@ -69,7 +69,7 @@ $this->load->view('template/js');
     $(document).ready(function () {
         var tabel = generate_datatables({
             div: "#example",
-            url: "<?=base_url('nota-dinas-gm/data_json') ?>",
+            url: "<?=base_url($segment . '/data_json') ?>",
             year: <?=$year ?? "null" ?>,
             columns: [{
                 "data": "id_surat"
@@ -97,7 +97,7 @@ $this->load->view('template/js');
                 "data": "id_surat",
                 "orderable": false,
                 "render": function (data, type, row) { // Tampilkan kolom aksi
-                    var html = '<a href="<?php echo base_url("nota-dinas-gm/edit/' + data +
+                    var html = '<a href="<?php echo base_url($segment . "/edit/' + data +
                         '") ?>" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a> | ' +
                         '<button class="btn btn-sm btn-danger" onclick="delete_data(' +
                         data + ')"><i class="fa fa-trash"></i></button>'
@@ -120,7 +120,7 @@ $this->load->view('template/js');
 
     function delete_data(id_surat) {
         var urlRedirect = "<?=$segment_url ?>";
-        var url = "<?php echo base_url('nota-dinas-gm/destroy') ?>";
+        var url = "<?php echo base_url($segment . '/destroy') ?>";
         deleteDialog({
             url: url,
             data: {

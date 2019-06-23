@@ -3,9 +3,19 @@
 class Berita_Acara extends BASE_Controller
 {
     // nama surat
-    protected static $_segment = 'berita-acara';
-    // jenis surat
-    protected static $_jenis_surat = 'berita_acara';
+    protected static $_nama_surat = 'Berita Acara';
+
+    // opsi kegiatan surat
+    protected static $_kegiatan = [
+        'BA Pra Aanwijzing' => 'BA Pra Aanwijzing',
+        'BA Aanwijzing' => 'BA Aanwijzing',
+        'BA Pembukaan Dokumen Penawaran' => 'BA Pembukaan Dokumen Penawaran',
+        'BA Evaluasi Dokumen Penawaran' => 'BA Evaluasi Dokumen Penawaran',
+        'BA Negosiasi/Klarifikasi Harga' => 'BA Negosiasi/Klarifikasi Harga',
+        'BA Kewajaran Harga' => 'BA Kewajaran Harga',
+        'BA Hasil Pelelangan' => 'BA Hasil Pelelangan',
+        'BA Hasil Penunjukan Langsung' => 'BA Hasil Penunjukan Langsung',
+    ];
 
     public function __construct()
     {
@@ -17,15 +27,16 @@ class Berita_Acara extends BASE_Controller
     // halaman berita acara
     public function index($year = null)
     {
+        $data['judul'] = self::$_nama_surat;
         $data['year'] = $year;
-        $data['segment'] = self::$_segment;
-        $this->load->view('pages/surat/berita_acara/berita_acara', $data);
+        $data['segment'] = self::_segment();
+        $this->load->view('pages/surat/index', $data);
     }
 
     public function data_json()
     {
         // panggil fungsi return_json dari BaseController dengan model 'surat_model' dan 'jenis_surat'
-        $data = $this->return_json_surat('surat_model', self::$_jenis_surat);
+        $data = $this->return_json_surat('surat_model', self::_jenis_surat());
 
         header('Content-Type: application/json');
         echo json_encode($data);
@@ -37,26 +48,37 @@ class Berita_Acara extends BASE_Controller
         // load model users_model karena data pegawai ada di users_model
         $this->load->model('users_model');
 
-        $data['segment'] = self::$_segment;
+        // title halaman
+        $data['judul'] = self::$_nama_surat;
+
+        // segment surat
+        $data['segment'] = self::_segment();
+
+        // jenis surat
+        $data['jenis_surat'] = self::_jenis_surat();
 
         // ambil data pegawai untuk di tampilkan di dropdown pemesan
         $data['pegawai'] = self::_list_pegawai();
-        
+
+        // opsi kegiatan
+        $data['kegiatan'] = self::$_kegiatan;
+
         // ambil data tahun sekarang
         $current_year = self::_current_year();
 
         // format nomor surat
+        // setting format penomoran surat di tulis di dalam koding dibawah ini
         $prefix_nomor_surat = ''; //awalan nomor surat
         $nomor_surat = '/BA/PL.02/PST/' . $current_year . ''; //akhiran  nomor surat
 
         // ambil data terakhir
-        $last_number = $this->get_last_number($prefix_nomor_surat, self::$_jenis_surat, $current_year);
+        $last_number = $this->get_last_number($prefix_nomor_surat, self::_jenis_surat(), $current_year);
 
         // format nomor surat
         $data['nomor_surat'] = $prefix_nomor_surat . $last_number . $nomor_surat;
 
         // tampilkan view
-        $this->load->view('pages/surat/berita_acara/berita_acara_tambah', $data);
+        $this->load->view('pages/surat/tambah_surat', $data);
     }
 
     public function simpan()
@@ -81,16 +103,34 @@ class Berita_Acara extends BASE_Controller
     {
         $this->load->model('users_model');
 
-        $segment = self::$_segment;
+        // title halaman
+        $judul = self::$_nama_surat;
+
+        // segment surat
+        $segment = self::_segment();
+
+        // jenis surat
+        $jenis_surat = self::_jenis_surat();
 
         // ambil data pegawai untuk di tampilkan di dropdown pemesan
         $list_pegawai = self::_list_pegawai();
 
+        // opsi kegiatan
+        $kegiatan = self::$_kegiatan;
+
         // ambil data surat sesuai dengan id_surat
         $data_surat = $this->surat_model->get_surat_edit($id);
 
-        $data = ['data_surat' => $data_surat[0], 'pegawai' => $list_pegawai, 'segment' => $segment];
-        $this->load->view('pages/surat/berita_acara/berita_acara_edit', $data);
+        $data = [
+            'judul' => $judul,
+            'segment' => $segment,
+            'jenis_surat' => $jenis_surat,
+            'kegiatan' => $kegiatan,
+            'data_surat' => $data_surat[0],
+            'pegawai' => $list_pegawai,
+        ];
+
+        $this->load->view('pages/surat/edit_surat', $data);
     }
 
     public function update()
