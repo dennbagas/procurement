@@ -69,7 +69,7 @@ $this->load->view('template/js');
      */
     function showSuccesDialog() {
         Swal.fire('Sukses', 'Berhasil update data user', 'success')
-            .then((result) => redirect("<?=base_url('pegawai/user') ?>"));
+            .then((result) => redirect("<?=base_url('user') ?>"));
     };
 </script>
 
