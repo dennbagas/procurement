@@ -11,8 +11,6 @@ $alamat = set_value('alamat');
 $jenis_kelamin = set_value('jenis_kelamin');
 $password = set_value('password');
 
-$url = $_SERVER['HTTP_REFERER'] ?? base_url('pegawai');
-
 ?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -34,15 +32,13 @@ $url = $_SERVER['HTTP_REFERER'] ?? base_url('pegawai');
             <?=custom_input(['name' => 'nama', 'placeholder' => 'Nama', 'value' => $nama]) ?>
             <?=custom_input(['name' => 'alamat', 'placeholder' => 'Alamat', 'value' => $alamat]) ?>
             <?=custom_dropdown('Jenis Kelamin', [
-                    'name' => 'jenis_kelamin',
-                    'value' => $jenis_kelamin,
-                ],
-                    $options = array('0' => 'Laki-laki', '1' => 'Perempuan'),
-                    $selected = array('0' => 'Laki-laki'))
+                'name' => 'jenis_kelamin',
+                'value' => $jenis_kelamin,
+            ],
+                $options = array('0' => 'Laki-laki', '1' => 'Perempuan'),
+                $selected = array('0' => 'Laki-laki'))
             ?>
-            <?=custom_input(['name' => 'user_name', 'placeholder' => 'Username', 'value' => $user_name]) ?>
-            <?=custom_password(['name' => 'password', 'placeholder' => 'Password', 'value' => $password]); ?>
-            <?=custom_submit(['name' => 'mysubmit', 'id' => 'submit'], 'Simpan', '', $url); ?>
+            <?=custom_submit(['name' => 'mysubmit', 'id' => 'submit'], 'Simpan', '', base_url('pegawai')); ?>
 
             <?=form_close(); ?>
         </div>

@@ -27,7 +27,7 @@ $this->load->view('template/sidebar');
                     'value' => $data_user['jenis_kelamin'],
                 ],
                     $options = array('0' => 'Laki-laki', '1' => 'Perempuan'),
-                    $selected = array('0' => 'Laki-laki'), ['id' => 'jenis_kelamin'])
+                    $selected = $data_user['jenis_kelamin'], ['id' => 'jenis_kelamin'])
                 ?>
             <?=custom_submit(['name' => 'mysubmit', 'id' => 'submit'], 'Simpan', '', base_url('pegawai')); ?>
 

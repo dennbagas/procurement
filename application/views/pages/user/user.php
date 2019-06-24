@@ -15,7 +15,7 @@ $this->load->view('template/sidebar');
         <div class="box-header with-border">
             <h3 class="box-title">Daftar User</h3>
             <div class="box-tools pull-right">
-                <a href="<?=base_url() . 'pegawai/tambah' ?>" class="btn btn-success">
+                <a href="<?=base_url() . 'user/tambah' ?>" class="btn btn-success">
                     <i class="fa fa-pencil"></i> <span>Tambah Data</span>
                 </a>
             </div>
@@ -24,6 +24,9 @@ $this->load->view('template/sidebar');
             <table id="example" class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr>
+                        <th>
+                            <center>NIP</center>
+                        </th>
                         <th>
                             <center>Username</center>
                         </th>
@@ -56,7 +59,7 @@ $this->load->view('template/js');
                 [0, 'asc']
             ], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
             "ajax": {
-                "url": "<?php echo base_url('pegawai/users_json') ?>", // URL file untuk proses select datanya
+                "url": "<?php echo base_url('user/users_json') ?>", // URL file untuk proses select datanya
                 "type": "POST"
             },
             "deferRender": true,
@@ -65,6 +68,9 @@ $this->load->view('template/js');
                 [10, 25, 50]
             ], // Combobox Limit
             "columns": [
+                {
+                    "data": "nip"
+                },
                 {
                     "data": "nama_user"
                 },
@@ -79,7 +85,7 @@ $this->load->view('template/js');
                 {
                     "data": "id_user",
                     "render": function (data, type, row) { // Tampilkan kolom aksi
-                        var html = '<center><a href="<?php echo base_url("pegawai/user_edit/' + data +
+                        var html = '<center><a href="<?php echo base_url("user/user_edit/' + data +
                             '") ?>" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a> | ' +
                             '<button class="btn btn-sm btn-danger" onclick="deleteDialog(' +
                             data + ')"><i class="fa fa-trash"></i></button></center>';
@@ -104,7 +110,7 @@ $this->load->view('template/js');
         }).then(async (result) => {
             if (result.value) {
                 $.ajax({
-                    url: "<?php echo base_url('pegawai/user_destroy') ?>",
+                    url: "<?php echo base_url('user/user_destroy') ?>",
                     type: 'POST',
                     data: {
                         id: data
@@ -115,7 +121,7 @@ $this->load->view('template/js');
                             'Data Anda berhasil dihapus',
                             'success'
                         ).then((result) => {
-                            window.location.href = "<?php echo base_url("pegawai"); ?>";
+                            window.location.href = "<?php echo base_url("user"); ?>";
                         });
                     }
                 });

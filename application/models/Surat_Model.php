@@ -8,7 +8,8 @@ class Surat_model extends CI_model
     {
         return $this->db->select('*')
             ->from('tr_surat')
-            ->join('ms_pegawai', 'ms_pegawai.nip = tr_surat.nip')
+            ->join('ms_user', 'ms_user.id_user = tr_surat.id_user')
+            ->join('ms_pegawai', 'ms_pegawai.nip = ms_user.nip')
             ->where("(
                 nomor_surat LIKE '%$search%'
                 OR tanggal LIKE '%$search%'
@@ -27,24 +28,21 @@ class Surat_model extends CI_model
             'kegiatan' => $data['kegiatan'],
             'pekerjaan' => $data['pekerjaan'],
             'tujuan' => $data['tujuan'],
-            'nip' => $data['pemesan'],
+            'id_user' => $data['pemesan'],
             'jenis' => $data['jenis'],
         );
 
         $query = $this->db->insert($this->__table_surat, $query_data);
 
-        if (!$query) {
-            return false;
-        } else {
-            return true;
-        }
+        return $query ? true : false;
     }
 
     public function get_surat_edit($id)
     {
         $this->db->select('*')
             ->from('tr_surat')
-            ->join('ms_pegawai', 'ms_pegawai.nip = tr_surat.nip')
+            ->join('ms_user', 'ms_user.id_user = tr_surat.id_user')
+            ->join('ms_pegawai', 'ms_pegawai.nip = ms_user.nip')
             ->where('id_surat', $id);
 
         $query = $this->db->get();
@@ -59,18 +57,14 @@ class Surat_model extends CI_model
             'kegiatan' => $data['kegiatan'],
             'pekerjaan' => $data['pekerjaan'],
             'tujuan' => $data['tujuan'],
-            'nip' => $data['pemesan'],
+            'id_user' => $data['pemesan'],
             'jenis' => $data['jenis'],
         );
 
         $this->db->where('id_surat', $data['id']);
         $query = $this->db->update($this->__table_surat, $query_data);
 
-        if (!$query) {
-            return false;
-        } else {
-            return true;
-        }
+        return $query ? true : false;
     }
 
     public function filter($jenis_surat, $search, $limit, $start, $order_field, $order_ascdesc, $year)

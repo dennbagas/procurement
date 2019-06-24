@@ -1,27 +1,27 @@
 <?php
 
-class Pegawai extends BASE_Controller
+class User extends BASE_Controller
 {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('pegawai_model');
+        $this->load->model('users_model');
         if ($this->session->userdata('akses') != 'admin') {
             $url = base_url('beranda');
             redirect($url);
         }
     }
 
-    // halaman pegawai
+    // halaman users
     public function index()
     {
-        $this->load->view('pages/pegawai/pegawai');
+        $this->load->view('pages/user/user');
     }
 
-    public function pegawai_json()
+    public function users_json()
     {
-        // panggil fungsi return_json dari BaseController dengan model 'pegawai_model'
-        $data = $this->return_json_users('pegawai_model', 'ms_pegawai');
+        // panggil fungsi return_json dari BaseController dengan model 'users_model'
+        $data = $this->return_json_users('users_model', 'ms_user');
 
         header('Content-Type: application/json');
         echo json_encode($data);
@@ -30,31 +30,29 @@ class Pegawai extends BASE_Controller
     public function tambah()
     {
         // tampilkan view
-        $this->load->view('pages/pegawai/pegawai_tambah');
+        $data['list_pegawai'] = self::_list_pegawai();
+        $this->load->view('pages/user/user_tambah', $data);
     }
 
     public function register_post()
     {
-        $this->form_validation->set_rules('nip', 'NIP', 'required|min_length[5]|max_length[10]|is_unique[ms_pegawai.nip]',
+        $this->form_validation->set_rules('nip', 'NIP', 'is_unique[ms_user.nip]',
             array(
-                'required' => 'Kolom %s harus di isi.',
-                'is_unique' => '- %s telah digunakan.',
-                'min_length' => '- Panjang %s minimal 5 karakter.',
-                'max_length' => '- Panjang %s maksimal 10 karakter.',
+                'is_unique' => '- Pegawai ini telah memiliki username & password.',
             ));
 
         $data = $this->input->post();
 
         if ($this->form_validation->run() != false) {
-            $this->pegawai_model->register_pegawai($data);
+            $this->users_model->register_user($data);
 
             $this->session->set_flashdata('pegawai_message', success_message(
-                $message = 'Berhasil Registrasi Pegawai',
-                $url = base_url() . 'pegawai',
-                $link = 'Lihat Daftar Pegawai'
+                $message = 'Berhasil Registrasi User',
+                $url = base_url() . 'user',
+                $link = 'Lihat Daftar User'
             ));
 
-            redirect('/pegawai/tambah');
+            redirect('/user/tambah');
 
         } else {
 
@@ -67,15 +65,20 @@ class Pegawai extends BASE_Controller
         }
     }
 
-    public function pegawai_edit($id)
+    public function user_edit($id)
     {
-        $data_user = $this->pegawai_model->get_pegawai_edit($id);
-        $this->load->view('pages/pegawai/pegawai_edit', ['data_user' => $data_user[0]]);
+        $data_user = $this->users_model->get_user_edit($id);
+        $this->load->view('pages/user/user_edit', ['data_user' => $data_user[0]]);
     }
 
-    public function pegawai_update()
+    public function user_update()
     {
-        $this->form_validation->set_rules('nip', 'NIP', 'required',
+        $this->form_validation->set_rules('nama_user', 'Username', 'required',
+            array(
+                'required' => 'Kolom %s harus di isi.',
+            ));
+
+        $this->form_validation->set_rules('password', 'Password', 'required',
             array(
                 'required' => 'Kolom %s harus di isi.',
             ));
@@ -88,16 +91,16 @@ class Pegawai extends BASE_Controller
             echo json_encode(['error' => $errors]);
         } else {
             // update data
-            $query = $this->pegawai_model->pegawai_update($data);
+            $query = $this->users_model->user_update($data);
 
             echo $query ? json_encode(['success' => 'Success']) : json_encode(['error' => 'Database Error']);
         }
     }
 
-    public function pegawai_destroy()
+    public function user_destroy()
     {
         $id = $this->input->post('id');
-        $delete = $this->pegawai_model->delete_pegawai($id);
+        $delete = $this->users_model->delete_user($id);
 
         echo $delete ? json_encode(['success' => 'OK']) : json_encode(['error' => 'error']);
     }

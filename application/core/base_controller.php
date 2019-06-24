@@ -9,6 +9,7 @@ class BASE_Controller extends CI_Controller
             $url = base_url();
             redirect($url);
         }
+        $this->load->model('pegawai_model');
         $this->load->library(array('form_validation'));
         $this->load->helper(array(
             'url', 'form', 'custom_form', 'flash_message',
@@ -38,9 +39,9 @@ class BASE_Controller extends CI_Controller
 
     protected function _list_pegawai()
     {
-        $pegawai = $this->users_model->get_pegawai();
+        $pegawai = $this->pegawai_model->get_pegawai();
         foreach ($pegawai as $value) {
-            $data['pegawai'][$value['nip']] = $value['nama'];
+            $data['pegawai'][$value['id_user']] = $value['nama'];
         }
 
         return $data['pegawai'];
