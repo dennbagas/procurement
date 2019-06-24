@@ -52,7 +52,7 @@ class Surat_Gm extends BASE_Controller
         $data['jenis_surat'] = self::_jenis_surat();
 
         // ambil data pegawai untuk di tampilkan di dropdown pemesan
-        $data['pegawai'] = self::_list_pegawai();
+        $data['pegawai'] = self::_list_user();
 
         // opsi kegiatan
         $data['kegiatan'] = self::$_kegiatan;
@@ -110,7 +110,7 @@ class Surat_Gm extends BASE_Controller
         $jenis_surat = self::_jenis_surat();
 
         // ambil data pegawai untuk di tampilkan di dropdown pemesan
-        $list_pegawai = self::_list_pegawai();
+        $list_pegawai = self::_list_user();
 
         // opsi kegiatan
         $kegiatan = self::$_kegiatan;

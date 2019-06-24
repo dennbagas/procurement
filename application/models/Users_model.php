@@ -121,4 +121,16 @@ class Users_model extends CI_Model
 
         return $query->result_array();
     }
+
+    // fungsi untuk mengambil data pegawai
+    public function get_user()
+    {
+        $this->db->select('id_user, nama');
+        $this->db->from(self::$__table_pegawai);
+        $this->db->join('ms_user', 'ms_user.nip = ms_pegawai.nip');
+        $this->db->order_by('nama', 'ASC');
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
 }

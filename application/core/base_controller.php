@@ -37,11 +37,21 @@ class BASE_Controller extends CI_Controller
         return date("m");
     }
 
+    protected function _list_user()
+    {
+        $pegawai = $this->users_model->get_user();
+        foreach ($pegawai as $value) {
+            $data['pegawai'][$value['id_user']] = $value['nama'];
+        }
+
+        return $data['pegawai'];
+    }
+    
     protected function _list_pegawai()
     {
         $pegawai = $this->pegawai_model->get_pegawai();
         foreach ($pegawai as $value) {
-            $data['pegawai'][$value['id_user']] = $value['nama'];
+            $data['pegawai'][$value['nip']] = $value['nama'];
         }
 
         return $data['pegawai'];

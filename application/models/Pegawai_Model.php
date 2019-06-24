@@ -87,9 +87,8 @@ class Pegawai_Model extends CI_Model
     // fungsi untuk mengambil data pegawai
     public function get_pegawai()
     {
-        $this->db->select('id_user, nama');
+        $this->db->select('nip, nama');
         $this->db->from(self::$__table_pegawai);
-        $this->db->join('ms_user', 'ms_user.nip = ms_pegawai.nip');
         $this->db->order_by('nama', 'ASC');
         $query = $this->db->get();
 
