@@ -23,9 +23,10 @@ class Users_model extends CI_Model
 
             // insert ke tabel pegawai
             $query1 = $this->db->insert(self::$__table_pegawai, $data_pegawai);
+            $insert_id = $this->db->insert_id();
 
             $data = array(
-                'nip' => $nip,
+                'id_pegawai' => $insert_id,
                 'nama_user' => $nama,
                 'password' => MD5($password),
                 'level' => '0',
@@ -50,7 +51,7 @@ class Users_model extends CI_Model
     public function register_user($data)
     {
         $data_user = array(
-            'nip' => $data['nip'],
+            'id_pegawai' => $data['id_pegawai'],
             'nama_user' => $data['nama_user'],
             'password' => MD5($data['password']),
             'level' => '1',
@@ -65,6 +66,7 @@ class Users_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from(self::$__table_user);
+        $this->db->join('ms_pegawai', 'ms_pegawai.id_pegawai = ms_user.id_pegawai');
         return $this->db->where("(nama_user LIKE '%$search%')");
 
     }
@@ -115,7 +117,8 @@ class Users_model extends CI_Model
 
     public function get_user_edit($id_user)
     {
-        $query = $this->db->select('id_user, nama_user, nip')->from('ms_user')
+        $query = $this->db->select('id_user, nama_user, nama')->from('ms_user')
+            ->join('ms_pegawai', 'ms_pegawai.id_pegawai = ms_user.id_pegawai')
             ->where('id_user', $id_user)
             ->get();
 
@@ -127,7 +130,7 @@ class Users_model extends CI_Model
     {
         $this->db->select('id_user, nama');
         $this->db->from(self::$__table_pegawai);
-        $this->db->join('ms_user', 'ms_user.nip = ms_pegawai.nip');
+        $this->db->join('ms_user', 'ms_user.id_pegawai = ms_pegawai.id_pegawai');
         $this->db->order_by('nama', 'ASC');
         $query = $this->db->get();
 

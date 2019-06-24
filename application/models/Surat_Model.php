@@ -9,7 +9,7 @@ class Surat_model extends CI_model
         return $this->db->select('*')
             ->from('tr_surat')
             ->join('ms_user', 'ms_user.id_user = tr_surat.id_user')
-            ->join('ms_pegawai', 'ms_pegawai.nip = ms_user.nip')
+            ->join('ms_pegawai', 'ms_pegawai.id_pegawai = ms_user.id_pegawai')
             ->where("(
                 nomor_surat LIKE '%$search%'
                 OR tanggal LIKE '%$search%'
@@ -42,7 +42,7 @@ class Surat_model extends CI_model
         $this->db->select('*')
             ->from('tr_surat')
             ->join('ms_user', 'ms_user.id_user = tr_surat.id_user')
-            ->join('ms_pegawai', 'ms_pegawai.nip = ms_user.nip')
+            ->join('ms_pegawai', 'ms_pegawai.id_pegawai = ms_user.id_pegawai')
             ->where('id_surat', $id);
 
         $query = $this->db->get();

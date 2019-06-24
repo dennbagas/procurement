@@ -32,7 +32,7 @@ class Login extends CI_Controller
 
             // ... masukkan data ke dalam variabel $data
             $data = $auth->row_array();
-            $bio = $this->pegawai_model->bio($data['nip'])->row_array();
+            $bio = $this->pegawai_model->bio($data['id_pegawai'])->row_array();
             print_r($bio);
             // set user data masuk
             $this->session->set_userdata('masuk', true);

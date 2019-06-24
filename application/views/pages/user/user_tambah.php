@@ -18,7 +18,7 @@ $this->load->view('template/sidebar');
         <div class="box-body">
             <?=$this->session->flashdata('pegawai_message'); ?>
             <?=form_open('user/register_post', ['id' => 'forms', 'class' => 'form-horizontal', 'style' => 'width:70%;margin:auto;', 'name' => "submit"]); ?>
-            <?=custom_dropdown('Nama Pegawai', ['name' => 'nip'], $options = $list_pegawai, '', ['id' => 'nip']) ?>
+            <?=custom_dropdown('Nama Pegawai', ['name' => 'id_pegawai'], $options = $list_pegawai, '', ['id' => 'id_pegawai']) ?>
             <?=custom_input(['id' => 'nama_user', 'name' => 'nama_user', 'placeholder' => 'Username']) ?>
             <?=custom_password(['id' => 'password', 'name' => 'password', 'placeholder' => 'Password']); ?>
             <?=custom_submit(['name' => 'mysubmit', 'id' => 'submit'], 'Simpan', '', base_url('user')); ?>

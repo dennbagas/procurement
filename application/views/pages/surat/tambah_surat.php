@@ -103,6 +103,7 @@ $this->load->view('template/js');
     // event yang di panggil ketika tombol Copy ditekan
     clipboard.on('success', function (e) {
         $("#submit").hide();
+        $("#cancel").hide();
         Toast.fire({
                 type: 'success',
                 title: 'Copied: ' + e.text

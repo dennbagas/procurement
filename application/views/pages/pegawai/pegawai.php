@@ -90,14 +90,16 @@ $this->load->view('template/js');
                     "orderable": false
                 },
                 {
-                    "data": "nip",
+                    "data": "id_pegawai",
                     "render": function (data, type, row) { // Tampilkan kolom aksi
+                    var quote = '"' + data + '"';
+                    console.log(quote);
                         var html = '<center><a href="<?php echo base_url("pegawai/pegawai_edit/' + data +
                             '") ?>" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a> | ' +
                             '<button class="btn btn-sm btn-danger" onclick="deleteDialog(' +
                             data + ')"><i class="fa fa-trash"></i></button></center>';
 
-                        return html
+                        return html;
                     },
                     "orderable": false
                 },
@@ -106,7 +108,6 @@ $this->load->view('template/js');
     });
 
     function deleteDialog(data) {
-        // console.log(data);
         Swal.fire({
             title: 'Anda yakin ingin menghapus?',
             type: 'warning',

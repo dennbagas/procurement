@@ -90,7 +90,7 @@ $this->load->view('template/js');
                             '<button class="btn btn-sm btn-danger" onclick="deleteDialog(' +
                             data + ')"><i class="fa fa-trash"></i></button></center>';
 
-                        return html
+                        return html;
                     },
                     "orderable": false
                 },

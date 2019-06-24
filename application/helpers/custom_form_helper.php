@@ -71,7 +71,7 @@ if (!function_exists('custom_submit')) {
             <div class="col-sm-offset-2 col-sm-10">
                 <input ' . _parse_form_attributes($data, $defaults) . _attributes_to_string($extra) . ' />
 
-                <a href="' . $segment . '" class="btn btn-danger">
+                <a href="' . $segment . '" class="btn btn-danger" id="cancel">
                     Batal
                 </a>
             </div>

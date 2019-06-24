@@ -18,17 +18,17 @@ $this->load->view('template/sidebar');
         <div class="box-body">
             <?=$this->session->flashdata('pegawai_message'); ?>
             <?=form_open('', ['id' => 'forms', 'class' => 'form-horizontal', 'style' => 'width:70%;margin:auto;', 'name' => "submit"]); ?>
-
+            <?=form_input(['type' => 'hidden', 'name' => 'id', 'id' => 'id'], $value = $data_user['id_pegawai']) ?>
             <?=custom_input(['id' => 'nip', 'name' => 'nip', 'placeholder' => 'NIP', 'value' => $data_user['nip']]) ?>
             <?=custom_input(['id' => 'nama', 'name' => 'nama', 'placeholder' => 'Nama', 'value' => $data_user['nama']]) ?>
             <?=custom_input(['id' => 'alamat', 'name' => 'alamat', 'placeholder' => 'Alamat', 'value' => $data_user['alamat']]) ?>
             <?=custom_dropdown('Jenis Kelamin', [
-                    'name' => 'jenis_kelamin',
-                    'value' => $data_user['jenis_kelamin'],
-                ],
-                    $options = array('0' => 'Laki-laki', '1' => 'Perempuan'),
-                    $selected = $data_user['jenis_kelamin'], ['id' => 'jenis_kelamin'])
-                ?>
+                'name' => 'jenis_kelamin',
+                'value' => $data_user['jenis_kelamin'],
+            ],
+                $options = array('0' => 'Laki-laki', '1' => 'Perempuan'),
+                $selected = $data_user['jenis_kelamin'], ['id' => 'jenis_kelamin'])
+            ?>
             <?=custom_submit(['name' => 'mysubmit', 'id' => 'submit'], 'Simpan', '', base_url('pegawai')); ?>
 
             <?=form_close(); ?>
@@ -48,6 +48,7 @@ $this->load->view('template/js');
             var url = "<?php echo base_url(); ?>" + "pegawai/pegawai_update";
             var data = {
                 // id dari input form
+                id_pegawai: $("#id").val(),
                 nip: $("#nip").val(),
                 nama: $("#nama").val(),
                 alamat: $("#alamat").val(),

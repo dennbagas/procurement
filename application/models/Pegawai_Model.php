@@ -4,11 +4,11 @@ class Pegawai_Model extends CI_Model
 {
     private static $__table_pegawai = 'ms_pegawai';
 
-    public function bio($nip)
+    public function bio($id_pegawai)
     {
         $query = $this->db->select('*')
             ->from(self::$__table_pegawai)
-            ->where('nip', $nip)
+            ->where('id_pegawai', $id_pegawai)
             ->limit(1)->get();
 
         return $query;
@@ -58,10 +58,10 @@ class Pegawai_Model extends CI_Model
         return !$query ? false : true;
     }
 
-    public function get_pegawai_edit($nip)
+    public function get_pegawai_edit($id_pegawai)
     {
         $query = $this->db->select('*')->from('ms_pegawai')
-            ->where('nip', $nip)
+            ->where('id_pegawai', $id_pegawai)
             ->get();
 
         return $query->result_array();
@@ -70,7 +70,7 @@ class Pegawai_Model extends CI_Model
     public function pegawai_update($data)
     {
         // insert ke tabel pegawai
-        $this->db->where('nip', $data['nip']);
+        $this->db->where('id_pegawai', $data['id_pegawai']);
         $query = $this->db->update(self::$__table_pegawai, $data);
 
         return !$query ? false : true;
@@ -78,7 +78,7 @@ class Pegawai_Model extends CI_Model
 
     public function delete_pegawai($id)
     {
-        $this->db->where('nip', $id);
+        $this->db->where('id_pegawai', $id);
         $this->db->delete('ms_pegawai');
 
         return !$query ? false : true;
@@ -87,7 +87,7 @@ class Pegawai_Model extends CI_Model
     // fungsi untuk mengambil data pegawai
     public function get_pegawai()
     {
-        $this->db->select('nip, nama');
+        $this->db->select('id_pegawai, nama');
         $this->db->from(self::$__table_pegawai);
         $this->db->order_by('nama', 'ASC');
         $query = $this->db->get();

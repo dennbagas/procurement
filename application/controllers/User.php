@@ -36,7 +36,7 @@ class User extends BASE_Controller
 
     public function register_post()
     {
-        $this->form_validation->set_rules('nip', 'NIP', 'is_unique[ms_user.nip]',
+        $this->form_validation->set_rules('id_pegawai', 'Pegawai', 'is_unique[ms_user.id_pegawai]',
             array(
                 'is_unique' => '- Pegawai ini telah memiliki username & password.',
             ));

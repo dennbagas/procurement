@@ -13,3 +13,8 @@
 		<i class="fa fa-th"></i> <span>Tahun 2019</span>
 	</a>
 </li>
+<li>
+	<a href="<?=base_url($segment) ?>">
+		<i class="fa fa-th"></i> <span>Semua Surat</span>
+	</a>
+</li>

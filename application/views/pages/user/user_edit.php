@@ -19,7 +19,7 @@ $this->load->view('template/sidebar');
             <?=$this->session->flashdata('pegawai_message'); ?>
             <?=form_open('', ['id' => 'forms', 'class' => 'form-horizontal', 'style' => 'width:70%;margin:auto;', 'name' => "submit"]); ?>
             <?=form_input(['type' => 'hidden', 'name' => 'id', 'id' => 'id'], $value = $data_user['id_user']) ?>
-            <?=custom_input_readonly(['name' => 'nip', 'placeholder' => 'NIP', 'id' => 'nip'], $value = $data_user['nip']) ?>
+            <?=custom_input_readonly(['name' => 'Pegawai', 'placeholder' => 'Pegawai', 'id' => 'Pegawai'], $value = $data_user['nama']) ?>
             <?=custom_input(['id' => 'nama_user', 'name' => 'user_name', 'placeholder' => 'Username', 'value' => $data_user['nama_user']]) ?>
             <?=custom_password(['id' => 'password', 'name' => 'password', 'placeholder' => 'Password']); ?>
             <?=custom_submit(['name' => 'mysubmit', 'id' => 'submit'], 'Simpan', '', base_url('user')); ?>

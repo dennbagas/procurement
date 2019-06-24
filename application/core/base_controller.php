@@ -51,7 +51,7 @@ class BASE_Controller extends CI_Controller
     {
         $pegawai = $this->pegawai_model->get_pegawai();
         foreach ($pegawai as $value) {
-            $data['pegawai'][$value['nip']] = $value['nama'];
+            $data['pegawai'][$value['id_pegawai']] = $value['nama'];
         }
 
         return $data['pegawai'];
