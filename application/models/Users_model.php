@@ -2,6 +2,7 @@
 class Users_model extends CI_Model
 {
     private static $__table_user = 'ms_user';
+    private static $__table_pegawai = 'ms_pegawai';
 
     // fungsi aktifasi
     public function activate()

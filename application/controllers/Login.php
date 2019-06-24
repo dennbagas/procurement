@@ -7,7 +7,7 @@ class Login extends CI_Controller
         parent::__construct();
         $this->load->library(array('form_validation'));
         $this->load->helper(array('url', 'form'));
-        $this->load->model('users_model');
+        $this->load->model(array('users_model', 'pegawai_model'));
     }
 
     // fungsi untuk memanggil halaman login
@@ -32,7 +32,7 @@ class Login extends CI_Controller
 
             // ... masukkan data ke dalam variabel $data
             $data = $auth->row_array();
-            $bio = $this->users_model->bio($data['id_user'])->row_array();
+            $bio = $this->pegawai_model->bio($data['nip'])->row_array();
             print_r($bio);
             // set user data masuk
             $this->session->set_userdata('masuk', true);
