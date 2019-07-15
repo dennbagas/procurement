@@ -32,7 +32,7 @@ class Beranda extends CI_Controller
                 'Nota Dinas PST',
                 'Nota Dinas PUL',
                 'Surat GM',
-                'Surat Lelang/PL',
+                'Surat Lelang PL',
                 'Surat PST',
             ],
         ]);

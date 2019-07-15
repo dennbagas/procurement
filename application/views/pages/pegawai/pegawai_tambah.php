@@ -35,8 +35,8 @@ $password = set_value('password');
                 'name' => 'jenis_kelamin',
                 'value' => $jenis_kelamin,
             ],
-                $options = array('0' => 'Laki-laki', '1' => 'Perempuan'),
-                $selected = array('0' => 'Laki-laki'))
+                $options = array('0' => 'Laki-Laki', '1' => 'Perempuan'),
+                $selected = array('0' => 'Laki-Laki'))
             ?>
             <?=custom_submit(['name' => 'mysubmit', 'id' => 'submit'], 'Simpan', '', base_url('pegawai')); ?>
 

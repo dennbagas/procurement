@@ -37,7 +37,7 @@
                                 <li><a href="<?=base_url('nota-dinas-pst') ?>">Nota Dinas PST</a></li>
                                 <li><a href="<?=base_url('nota-dinas-pul') ?>">Nota Dinas PUL</a></li>
                                 <li><a href="<?=base_url('surat-gm') ?>">Surat GM</a></li>
-                                <li><a href="<?=base_url('surat-lelang-pl') ?>">Surat Lelang/PL</a></li>
+                                <li><a href="<?=base_url('surat-lelang-pl') ?>">Surat Lelang PL</a></li>
                                 <li><a href="<?=base_url('surat-pst') ?>">Surat PST</a></li>
                             </ul>
                         </li>

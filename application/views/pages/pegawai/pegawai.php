@@ -79,8 +79,8 @@ $this->load->view('template/js');
                 },
                 {
                     "data": "jenis_kelamin",
-                    "render": function (data, type, row) { // Tampilkan kolom Role
-                        let jenis_kelamin = (data == 0) ? "Laki-laki" : "Perempuan";
+                    "render": function (data, type, row) { // Tampilkan kolom Jenis Kelamin
+                        let jenis_kelamin = (data == 0) ? "Laki-Laki" : "Perempuan";
                         return jenis_kelamin;
                     },
                     "orderable": false

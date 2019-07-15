@@ -12,8 +12,8 @@ class Nota_Dinas_Pul extends BASE_Controller
         'ND Usulan Penetapan Pemenang' => 'ND Usulan Penetapan Pemenang',
         'ND Usulan Penetapan Pelaksana' => 'ND Usulan Penetapan Pelaksana',
         'ND Penetapan Pemenang' => 'ND Penetapan Pemenang',
-        'ND Penetapan Pelaksana' => 'BA Evaluasi Dokumen Penawaran',
-        'BA Laporan Berakhirnya Masa Sanggah' => 'BA Laporan Berakhirnya Masa Sanggah',
+        'ND Penetapan Pelaksana' => 'ND Penetapan Pelaksana',
+        'ND Laporan Berakhirnya Masa Sanggah' => 'ND Laporan Berakhirnya Masa Sanggah',
     ];
 
     public function __construct()

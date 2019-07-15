@@ -14,7 +14,11 @@ class Login extends CI_Controller
     public function index()
     {
         $this->users_model->activate();
-        $this->load->view('pages/login');
+        if ($this->session->userdata('masuk') != false) {
+            redirect('beranda');
+        } else {
+            $this->load->view('pages/login');
+        }
     }
 
     // fungsi untuk authentifikasi

@@ -81,7 +81,7 @@ $this->load->view('template/js');
         let body = '<div style="font-size:2rem;">Nomor Surat Anda</div>' +
             '<div style="font-size:2.5rem; margin:10px; padding:15px; border:1px solid #000">' +
             '<b><?=$nomor_surat ?></b>' + '</div>' +
-            '<span style="font-size:1.4rem;">Klik tombol dibawah untuk menyalin.</span>';
+            '<span style="font-size:1.4rem;">Klik tombol dibawah untuk menyalin</span>';
 
         // variabel untuk footer dialog
         let footer = '<button data-clipboard-text="<?=$nomor_surat ?>"' +

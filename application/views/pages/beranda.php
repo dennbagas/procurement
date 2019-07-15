@@ -6,7 +6,7 @@ $this->load->view('template/sidebar');
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        <center>Beranda</center>
+        <center>Politeknik Negeri Madiun</center>
     </h1>
 </section>
 
